@@ -21,6 +21,7 @@ class FakeRunTimeTest extends TestCase
 
         self::assertSame((float)$initialMemory, $runTime->getFirstDimension());
         self::assertSame((float)$initialExecTime, $runTime->getExecutionTime());
+        self::assertSame((int) $initialIterations, $runTime->getSecondDimension());
 
         $runTime->bumpFirstDimension();
 
@@ -34,5 +35,10 @@ class FakeRunTimeTest extends TestCase
             $increasedExecutionTime,
             $runTime->getExecutionTime()
         );
+
+        $runTime->bumpSecondDimension();
+
+        self::assertSame($initialIterations + 1, $runTime->getSecondDimension());
+        self::assertSame($increasedExecutionTime * FakeRunTime::LOAD_MULTIPLIER, $runTime->getExecutionTime());
     }
 }
