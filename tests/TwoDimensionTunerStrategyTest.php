@@ -85,6 +85,16 @@ class TwoDimensionTunerStrategyTest extends TestCase
         self::assertGreaterThan($initialExecTime, $finalExecTime);
     }
 
+    public function testOverallTuningWhileExceedingMemory()
+    {
+        $tuner = $this->getMemoryExceedingTuner();
+        $tuner->tune();
+        $result = $tuner->getTuningResult();
+        self::assertTrue($tuner->isAcceptable());
+        echo "\n***** Memory Exceeding Fake Tuner Result:";
+        var_dump($result);
+    }
+
     private function getTuner(float $actualExecutionTime): TunerStrategy
     {
         $initialMemory = 1024000;

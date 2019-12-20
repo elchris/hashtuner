@@ -109,7 +109,10 @@ class TwoDimensionsTunerStrategy implements TunerStrategy
 
     public function tuneSecondDimensionBeyondAcceptability() : void
     {
-        while ($this->isAcceptable()) {
+        while ($this->hasNotPassedLowerThreshold()
+            ||
+            $this->isAcceptable()
+        ) {
             $this->bumpSecondDimension();
         }
     }
