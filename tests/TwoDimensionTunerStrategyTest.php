@@ -16,9 +16,6 @@ class TwoDimensionTunerStrategyTest extends TestCase
 
     public function testDesiredLimits()
     {
-        $phpProcessSize = ini_get('memory_limit');
-        $this->assertSame('4096M', $phpProcessSize);
-
         $executionTimeOverLimit = self::UPPER + 0.5;
         $tuner = $this->getTuner($executionTimeOverLimit);
         self::assertFalse($tuner->isAcceptable());
