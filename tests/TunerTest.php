@@ -43,9 +43,7 @@ class TunerTest extends TestCase
     {
         $tuner = $this->getFirstDimensionTunedTuner();
         echo "\n*** RunTime State Start: " . $tuner->getRunTimeInfo();
-        while ($tuner->isAcceptable()) {
-            $tuner->bumpSecondDimension();
-        }
+        $tuner->tuneSecondDimension();
         self::assertFalse($tuner->isAcceptable());
         echo "\n*** RunTime State End: " . $tuner->getRunTimeInfo();
     }

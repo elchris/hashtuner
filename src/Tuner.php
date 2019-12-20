@@ -98,8 +98,15 @@ class Tuner
         }
     }
 
-    public function bumpSecondDimension() : void
+    private function bumpSecondDimension() : void
     {
         $this->runTime->bumpSecondDimension();
+    }
+
+    public function tuneSecondDimension() : void
+    {
+        while ($this->isAcceptable()) {
+            $this->bumpSecondDimension();
+        }
     }
 }
