@@ -24,12 +24,14 @@ class FakeRunTimeTest extends TestCase
 
         $runTime->bumpFirstDimension();
 
+        $increasedMemory = $initialMemory + ($initialMemory * $loadIncrease);
         self::assertSame(
-            $initialMemory + ($initialMemory * $loadIncrease),
+            $increasedMemory,
             $runTime->getFirstDimension()
         );
+        $increasedExecutionTime = $initialExecTime + ($initialExecTime * $loadIncrease);
         self::assertSame(
-            $initialExecTime + ($initialExecTime * $loadIncrease),
+            $increasedExecutionTime,
             $runTime->getExecutionTime()
         );
     }
