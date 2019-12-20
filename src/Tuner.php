@@ -76,7 +76,7 @@ class Tuner
 
     public function getRunTimeInfo() : string
     {
-        return $this->runTime->getMemory().':'.$this->runTime->getExecutionTime();
+        return $this->runTime->getFirstDimension().':'.$this->runTime->getExecutionTime();
     }
 
     public function bumpFirstDimension() : void

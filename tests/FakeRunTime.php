@@ -22,7 +22,7 @@ class FakeRunTime
         $this->execTime = $initialExecTime;
     }
 
-    public function getMemory() : float
+    public function getFirstDimension() : float
     {
         return $this->memory;
     }
