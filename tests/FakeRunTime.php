@@ -8,6 +8,7 @@ class FakeRunTime implements HashRunTime
 {
     const LOAD_INCREASE = 0.10;
     const LOAD_MULTIPLIER = 1.25;
+    const HARD_MEMORY_LIMIT = 2048000;
     /**
      * @var float
      */
