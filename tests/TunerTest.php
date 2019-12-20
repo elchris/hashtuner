@@ -34,12 +34,20 @@ class TunerTest extends TestCase
 
     public function testFirstDimensionTuningLogic()
     {
-        $tuner = $this->getTuner(0.20);
-        echo "\n*** RunTime State Start: ".$tuner->getRunTimeInfo();
-        $tuner->tuneFirstDimension();
-        echo "\n*** RunTime State End: ".$tuner->getRunTimeInfo();
+        $tuner = $this->getFirstDimensionTunedTuner();
         self::assertTrue($tuner->isAcceptable());
         self::assertTrue($tuner->hasReachedFirstDimensionBumpStopThreshold());
+    }
+
+    public function testSecondDimensionTuningLogic()
+    {
+        $tuner = $this->getFirstDimensionTunedTuner();
+        echo "\n*** RunTime State Start: " . $tuner->getRunTimeInfo();
+        while ($tuner->isAcceptable()) {
+            $tuner->bumpSecondDimension();
+        }
+        self::assertFalse($tuner->isAcceptable());
+        echo "\n*** RunTime State End: " . $tuner->getRunTimeInfo();
     }
 
     private function getTuner(float $actualExecutionTime): Tuner
@@ -56,5 +64,18 @@ class TunerTest extends TestCase
                 $actualExecutionTime
             )
         );
+    }
+
+    /**
+     * @return Tuner
+     */
+    private function getFirstDimensionTunedTuner(): Tuner
+    {
+        $tuner = $this->getTuner(0.20);
+        echo "\n*** RunTime State Start: " . $tuner->getRunTimeInfo();
+        $tuner->tuneFirstDimension();
+        echo "\n*** RunTime State End: " . $tuner->getRunTimeInfo();
+
+        return $tuner;
     }
 }

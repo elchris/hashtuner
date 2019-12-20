@@ -79,7 +79,7 @@ class Tuner
         return $this->runTime->getFirstDimension().':'.$this->runTime->getExecutionTime();
     }
 
-    public function bumpFirstDimension() : void
+    private function bumpFirstDimension() : void
     {
         $this->runTime->bumpFirstDimension();
     }
@@ -96,5 +96,10 @@ class Tuner
         ) {
             $this->bumpFirstDimension();
         }
+    }
+
+    public function bumpSecondDimension() : void
+    {
+        $this->runTime->bumpSecondDimension();
     }
 }
