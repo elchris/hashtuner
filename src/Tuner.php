@@ -64,7 +64,7 @@ class Tuner
         return $this->getActualExecutionTime() > $this->desiredExecutionTimeUpperLimit;
     }
 
-    public function hasNotPassedLowerThreshold(): bool
+    private function hasNotPassedLowerThreshold(): bool
     {
         return $this->getActualExecutionTime() < $this->desiredExecutionTimeLowerLimit;
     }
@@ -82,5 +82,19 @@ class Tuner
     public function bumpFirstDimension() : void
     {
         $this->runTime->bumpFirstDimension();
+    }
+
+    public function tuneFirstDimension() : void
+    {
+        while ($this->hasNotPassedLowerThreshold()
+            ||
+            (
+                $this->isAcceptable()
+                &&
+                ! $this->hasReachedFirstDimensionBumpStopThreshold()
+            )
+        ) {
+            $this->bumpFirstDimension();
+        }
     }
 }
