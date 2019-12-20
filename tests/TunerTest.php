@@ -51,7 +51,14 @@ class TunerTest extends TestCase
         $result = $tuner->getTuningResult();
         $this->assertResultCorrectness($result);
         self::assertSame(16, $result->threads);
+        var_dump($result);
+    }
 
+    public function testArgonTunerWithDefaults()
+    {
+        $result = Tuner::getTunedArgonSettings();
+        $this->assertResultCorrectness($result);
+        self::assertSame(16, $result->threads);
         var_dump($result);
     }
 

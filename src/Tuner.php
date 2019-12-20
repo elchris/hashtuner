@@ -15,6 +15,24 @@ class Tuner
         $this->strategy = $strategy;
     }
 
+    public static function getTunedArgonSettings()
+    {
+        $tuner = new self(
+            new TwoDimensionsTunerStrategy(
+                new ExecutionBounds(
+                    0.5,
+                    1.0
+                ),
+                new ArgonRunTime(
+                    512000,
+                    3
+                )
+            )
+        );
+        $tuner->tune();
+        return $tuner->getTuningResult();
+    }
+
     public function tune() : void
     {
         $this->strategy->tune();
