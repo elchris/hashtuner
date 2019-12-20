@@ -141,4 +141,14 @@ class TwoDimensionsTunerStrategy
     {
         return $this->desiredExecutionTimeLowerLimit;
     }
+
+    public function getTuningResult() : TuningResult
+    {
+        return new TuningResult(
+            $this->runTime->getFirstDimension(),
+            $this->runTime->getSecondDimension(),
+            $this->runTime->getThirdDimension(),
+            $this->runTime->getExecutionTime()
+        );
+    }
 }

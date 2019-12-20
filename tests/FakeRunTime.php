@@ -66,4 +66,9 @@ class FakeRunTime
     {
         return $this->getFirstDimension().':'.$this->getExecutionTime().':'.$this->getSecondDimension();
     }
+
+    public function getThirdDimension() : int
+    {
+        return 16;
+    }
 }
