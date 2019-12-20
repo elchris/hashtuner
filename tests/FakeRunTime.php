@@ -22,12 +22,12 @@ class FakeRunTime
         $this->execTime = $initialExecTime;
     }
 
-    public function getMemory()
+    public function getMemory() : float
     {
         return $this->memory;
     }
 
-    public function getExecutionTime()
+    public function getExecutionTime() : float
     {
         return $this->execTime;
     }
