@@ -32,6 +32,20 @@ class TunerTest extends TestCase
         self::assertTrue($tuner->hasReachedMemoryBumpStopThreshold());
     }
 
+    //public function testConditions()
+    //{
+        //while
+            //tuner->hasNotPassedLowerThreshold
+            //OR
+            //
+            //tuner->isAcceptable
+            //AND
+            //NOT tuner->hasReachedMemoryBumpStopThreshold
+            //
+            //THEN
+                //Bump up the memory, slower run time
+    //}
+
     private function getTuner(float $actualExecutionTime): Tuner
     {
         $desiredExecutionTimeUpperLimit = 1.0;
@@ -40,7 +54,10 @@ class TunerTest extends TestCase
         return new Tuner(
             $desiredExecutionTimeLowerLimit,
             $desiredExecutionTimeUpperLimit,
-            $actualExecutionTime
+            new FakeRunTime(
+                1024000,
+                $actualExecutionTime
+            )
         );
     }
 }

@@ -2,13 +2,12 @@
 
 namespace ChrisHolland\HashTuner;
 
+use ChrisHolland\HashTuner\Test\FakeRunTime;
+
 class Tuner
 {
     const MEMORY_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT = 0.90;
-    /**
-     * @var float
-     */
-    private $actualExecutionTime;
+
     /**
      * @var float
      */
@@ -21,19 +20,23 @@ class Tuner
      * @var float
      */
     private $memoryBumpStopThreshold;
+    /**
+     * @var FakeRunTime
+     */
+    private $runTime;
 
     public function __construct(
         float $desiredExecutionTimeLowerLimit,
         float $desiredExecutionTimeUpperLimit,
-        float $actualExecutionTime
+        FakeRunTime $runTime
     ) {
-        $this->actualExecutionTime = $actualExecutionTime;
         $this->desiredExecutionTimeUpperLimit = $desiredExecutionTimeUpperLimit;
         $this->desiredExecutionTimeLowerLimit = $desiredExecutionTimeLowerLimit;
         $this->memoryBumpStopThreshold =
             self::MEMORY_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT
             *
             $this->desiredExecutionTimeUpperLimit;
+        $this->runTime = $runTime;
     }
 
     public function isAcceptable() : bool
@@ -48,18 +51,26 @@ class Tuner
         return $answer;
     }
 
+    /**
+     * @return float
+     */
+    public function getActualExecutionTime(): float
+    {
+        return $this->runTime->getExecutionTime();
+    }
+
     private function exceededUpperLimit(): bool
     {
-        return $this->actualExecutionTime > $this->desiredExecutionTimeUpperLimit;
+        return $this->getActualExecutionTime() > $this->desiredExecutionTimeUpperLimit;
     }
 
     public function hasNotPassedLowerThreshold(): bool
     {
-        return $this->actualExecutionTime < $this->desiredExecutionTimeLowerLimit;
+        return $this->getActualExecutionTime() < $this->desiredExecutionTimeLowerLimit;
     }
 
     public function hasReachedMemoryBumpStopThreshold(): bool
     {
-        return $this->actualExecutionTime >= $this->memoryBumpStopThreshold;
+        return $this->getActualExecutionTime() >= $this->memoryBumpStopThreshold;
     }
 }

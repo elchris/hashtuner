@@ -10,6 +10,8 @@ class FakeRunTimeTest extends TestCase
     {
         $initialMemory = 1024000;
         $initialExecTime = 0.5;
+        $loadIncrease = FakeRunTime::LOAD_INCREASE;
+
         $runTime = new FakeRunTime(
             $initialMemory,
             $initialExecTime
@@ -17,8 +19,9 @@ class FakeRunTimeTest extends TestCase
 
         self::assertSame((float)$initialMemory, $runTime->getMemory());
         self::assertSame((float)$initialExecTime, $runTime->getExecutionTime());
+
         $runTime->bumpMemory();
-        $loadIncrease = FakeRunTime::LOAD_INCREASE;
+
         self::assertSame(
             $initialMemory + ($initialMemory * $loadIncrease),
             $runTime->getMemory()
