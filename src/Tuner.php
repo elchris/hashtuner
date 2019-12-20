@@ -6,7 +6,7 @@ use ChrisHolland\HashTuner\Test\FakeRunTime;
 
 class Tuner
 {
-    const FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT = 0.90;
+    const FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT = 0.75;
 
     /**
      * @var float
@@ -76,7 +76,7 @@ class Tuner
 
     public function getRunTimeInfo() : string
     {
-        return $this->runTime->getFirstDimension().':'.$this->runTime->getExecutionTime();
+        return $this->runTime->info();
     }
 
     private function bumpFirstDimension() : void
@@ -103,10 +103,20 @@ class Tuner
         $this->runTime->bumpSecondDimension();
     }
 
-    public function tuneSecondDimension() : void
+    public function tuneSecondDimensionBeyondAcceptability() : void
     {
         while ($this->isAcceptable()) {
             $this->bumpSecondDimension();
         }
+    }
+
+    public function tuneSecondDimensionBackWithinAcceptability() : void
+    {
+        $this->backTrackSecondDimensionByOne();
+    }
+
+    private function backTrackSecondDimensionByOne() : void
+    {
+        $this->runTime->lowerSecondDimensionOneStep();
     }
 }

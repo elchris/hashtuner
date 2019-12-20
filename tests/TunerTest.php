@@ -8,25 +8,34 @@ use PHPUnit\Framework\TestCase;
 class TunerTest extends TestCase
 {
 
+    const UPPER = 1.0;
+    const LOWER = 0.5;
+
     public function testDesiredLimits()
     {
         $phpProcessSize = ini_get('memory_limit');
         $this->assertSame('4096M', $phpProcessSize);
 
-        $executionTimeOverLimit = 1.5;
+        $executionTimeOverLimit = self::UPPER + 0.5;
         $tuner = $this->getTuner($executionTimeOverLimit);
         self::assertFalse($tuner->isAcceptable());
 
-        $executionTimeBelowLimit = 0.4;
+        $executionTimeBelowLimit = self::LOWER - 0.1;
         $tuner = $this->getTuner($executionTimeBelowLimit);
         self::assertFalse($tuner->isAcceptable());
 
-        $executionTimeWithinMemoryBump = 0.85;
+        $executionTimeWithinMemoryBump =
+            (self::UPPER * Tuner::FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT)
+            - 0.05
+        ;
         $tuner = $this->getTuner($executionTimeWithinMemoryBump);
         self::assertTrue($tuner->isAcceptable());
         self::assertFalse($tuner->hasReachedFirstDimensionBumpStopThreshold());
 
-        $executionTimePastMemoryBump = 0.91;
+        $executionTimePastMemoryBump =
+            (self::UPPER * Tuner::FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT)
+            + 0.01
+        ;
         $tuner = $this->getTuner($executionTimePastMemoryBump);
         self::assertTrue($tuner->isAcceptable());
         self::assertTrue($tuner->hasReachedFirstDimensionBumpStopThreshold());
@@ -43,15 +52,18 @@ class TunerTest extends TestCase
     {
         $tuner = $this->getFirstDimensionTunedTuner();
         echo "\n*** RunTime State Start: " . $tuner->getRunTimeInfo();
-        $tuner->tuneSecondDimension();
+        $tuner->tuneSecondDimensionBeyondAcceptability();
         self::assertFalse($tuner->isAcceptable());
+        echo "\n*** RunTime State Middle: " . $tuner->getRunTimeInfo();
+        $tuner->tuneSecondDimensionBackWithinAcceptability();
         echo "\n*** RunTime State End: " . $tuner->getRunTimeInfo();
+        self::assertTrue($tuner->isAcceptable());
     }
 
     private function getTuner(float $actualExecutionTime): Tuner
     {
-        $desiredExecutionTimeUpperLimit = 1.0;
-        $desiredExecutionTimeLowerLimit = 0.5;
+        $desiredExecutionTimeUpperLimit = self::UPPER;
+        $desiredExecutionTimeLowerLimit = self::LOWER;
 
         return new Tuner(
             $desiredExecutionTimeLowerLimit,

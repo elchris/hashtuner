@@ -55,4 +55,15 @@ class FakeRunTime
         $this->iterations++;
         $this->execTime *= self::LOAD_MULTIPLIER;
     }
+
+    public function lowerSecondDimensionOneStep()
+    {
+        $this->iterations--;
+        $this->execTime /= self::LOAD_MULTIPLIER;
+    }
+
+    public function info() : string
+    {
+        return $this->getFirstDimension().':'.$this->getExecutionTime().':'.$this->getSecondDimension();
+    }
 }
