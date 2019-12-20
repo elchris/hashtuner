@@ -5,7 +5,7 @@ namespace ChrisHolland\HashTuner\Test;
 use ChrisHolland\HashTuner\TwoDimensionsTunerStrategy;
 use PHPUnit\Framework\TestCase;
 
-class TwoDimensionTunerTest extends TestCase
+class TwoDimensionTunerStrategyTest extends TestCase
 {
 
     const UPPER = 1.0;

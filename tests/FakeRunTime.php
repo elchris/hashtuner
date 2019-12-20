@@ -39,7 +39,7 @@ class FakeRunTime
         return $this->execTime;
     }
 
-    public function bumpFirstDimension()
+    public function bumpFirstDimension() : void
     {
         $this->memory = $this->memory + (self::LOAD_INCREASE * $this->memory);
         $this->execTime = $this->execTime + (self::LOAD_INCREASE * $this->execTime);
@@ -56,7 +56,7 @@ class FakeRunTime
         $this->execTime *= self::LOAD_MULTIPLIER;
     }
 
-    public function lowerSecondDimensionOneStep()
+    public function lowerSecondDimensionOneStep() : void
     {
         $this->iterations--;
         $this->execTime /= self::LOAD_MULTIPLIER;
