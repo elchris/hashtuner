@@ -2,7 +2,9 @@
 
 namespace ChrisHolland\HashTuner\Test;
 
-class FakeRunTime
+use ChrisHolland\HashTuner\HashRunTime;
+
+class FakeRunTime implements HashRunTime
 {
     const LOAD_INCREASE = 0.10;
     const LOAD_MULTIPLIER = 1.25;

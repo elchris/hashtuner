@@ -2,8 +2,6 @@
 
 namespace ChrisHolland\HashTuner;
 
-use ChrisHolland\HashTuner\Test\FakeRunTime;
-
 class TwoDimensionsTunerStrategy
 {
     const FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT = 0.75;
@@ -21,13 +19,13 @@ class TwoDimensionsTunerStrategy
      */
     private $firstDimensionBumpStopThreshold;
     /**
-     * @var FakeRunTime
+     * @var HashRunTime
      */
     private $runTime;
 
     public function __construct(
         ExecutionBounds $bounds,
-        FakeRunTime $runTime
+        HashRunTime $runTime
     ) {
         $this->desiredExecutionTimeLowerLimit = $bounds->lower;
         $this->desiredExecutionTimeUpperLimit = $bounds->upper;

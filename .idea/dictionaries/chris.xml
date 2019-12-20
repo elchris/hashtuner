@@ -5,7 +5,9 @@
       <w>codesniffer</w>
       <w>elchris</w>
       <w>hashtuner</w>
+      <w>ncpu</w>
       <w>squizlabs</w>
+      <w>sysctl</w>
     </words>
   </dictionary>
 </component>
