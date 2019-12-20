@@ -15,11 +15,21 @@ class TunerTest extends TestCase
 
         $executionTimeOverLimit = 1.5;
         $tuner = $this->getTuner($executionTimeOverLimit);
-        self::assertFalse($tuner->isSuccessFul());
+        self::assertFalse($tuner->isAcceptable());
 
         $executionTimeBelowLimit = 0.4;
         $tuner = $this->getTuner($executionTimeBelowLimit);
-        self::assertFalse($tuner->isSuccessFul());
+        self::assertFalse($tuner->isAcceptable());
+
+        $executionTimeWithinMemoryBump = 0.85;
+        $tuner = $this->getTuner($executionTimeWithinMemoryBump);
+        self::assertTrue($tuner->isAcceptable());
+        self::assertFalse($tuner->hasReachedMemoryBumpStopThreshold());
+
+        $executionTimePastMemoryBump = 0.91;
+        $tuner = $this->getTuner($executionTimePastMemoryBump);
+        self::assertTrue($tuner->isAcceptable());
+        self::assertTrue($tuner->hasReachedMemoryBumpStopThreshold());
     }
 
     private function getTuner(float $actualExecutionTime): Tuner
