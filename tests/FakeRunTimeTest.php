@@ -2,6 +2,7 @@
 
 namespace ChrisHolland\HashTuner\Test;
 
+use ChrisHolland\HashTuner\FirstDimensionLimitViolation;
 use PHPUnit\Framework\TestCase;
 
 class FakeRunTimeTest extends TestCase
@@ -10,6 +11,9 @@ class FakeRunTimeTest extends TestCase
     const DEFAULT_MEMORY = 1024000;
     const DEFAULT_EXEC_TIME = 0.5;
 
+    /**
+     * @throws FirstDimensionLimitViolation
+     */
     public function testFakeRunTime()
     {
         $initialIterations = self::DEFAULT_ITERATIONS;
@@ -42,17 +46,20 @@ class FakeRunTimeTest extends TestCase
         self::assertSame($increasedExecutionTime * FakeRunTime::LOAD_MULTIPLIER, $runTime->getExecutionTime());
     }
 
-//    public function testMemoryHardLimitViolation()
-//    {
-//        $runTime = $this->getFakeRunTime();
-//
-//        $this->expectException(\ChrisHolland\HashTuner\MemoryLimitViolation::class);
-//
-//        $attemptedLimit = 4096000;
-//        while ($runTime->getFirstDimension() < $attemptedLimit) {
-//            $runTime->bumpFirstDimension();
-//        }
-//    }
+    /**
+     * @throws FirstDimensionLimitViolation
+     */
+    public function testMemoryHardLimitViolation()
+    {
+        $runTime = $this->getFakeRunTime();
+
+        $this->expectException(FirstDimensionLimitViolation::class);
+
+        $attemptedLimit = 8192000;
+        while ($runTime->getFirstDimension() < $attemptedLimit) {
+            $runTime->bumpFirstDimension();
+        }
+    }
 
     private function getFakeRunTime(): FakeRunTime
     {

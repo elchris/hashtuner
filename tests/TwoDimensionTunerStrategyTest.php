@@ -78,16 +78,10 @@ class TwoDimensionTunerStrategyTest extends TestCase
 
     private function getTuner(float $actualExecutionTime): TunerStrategy
     {
-        return new TwoDimensionsTunerStrategy(
-            new ExecutionBounds(
-                self::LOWER,
-                self::UPPER
-            ),
-            new FakeRunTime(
-                4,
-                1024000,
-                $actualExecutionTime
-            )
+        $initialMemory = 1024000;
+        return $this->getTunerWithInitialMemory(
+            $actualExecutionTime,
+            $initialMemory
         );
     }
 
@@ -102,5 +96,35 @@ class TwoDimensionTunerStrategyTest extends TestCase
         echo "\n*** RunTime State End: " . $tuner->getRunTimeInfo();
 
         return $tuner;
+    }
+
+    private function getMemoryExceedingTuner()
+    {
+        return $this->getTunerWithInitialMemory(
+            0.20,
+            4096000
+        );
+    }
+
+    /**
+     * @param float $actualExecutionTime
+     * @param int $initialMemory
+     * @return TwoDimensionsTunerStrategy
+     */
+    private function getTunerWithInitialMemory(
+        float $actualExecutionTime,
+        int $initialMemory
+    ): TwoDimensionsTunerStrategy {
+        return new TwoDimensionsTunerStrategy(
+            new ExecutionBounds(
+                self::LOWER,
+                self::UPPER
+            ),
+            new FakeRunTime(
+                4,
+                $initialMemory,
+                $actualExecutionTime
+            )
+        );
     }
 }

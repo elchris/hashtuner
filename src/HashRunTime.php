@@ -8,6 +8,9 @@ interface HashRunTime
 
     public function getExecutionTime(): float;
 
+    /**
+     * @throws FirstDimensionLimitViolation
+     */
     public function bumpFirstDimension(): void;
 
     public function getSecondDimension(): int;

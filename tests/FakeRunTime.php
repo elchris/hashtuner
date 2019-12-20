@@ -3,12 +3,13 @@
 namespace ChrisHolland\HashTuner\Test;
 
 use ChrisHolland\HashTuner\HashRunTime;
+use ChrisHolland\HashTuner\FirstDimensionLimitViolation;
 
 class FakeRunTime implements HashRunTime
 {
     const LOAD_INCREASE = 0.10;
     const LOAD_MULTIPLIER = 1.25;
-    const HARD_MEMORY_LIMIT = 2048000;
+    const HARD_MEMORY_LIMIT = 4096000;
     /**
      * @var float
      */
@@ -42,9 +43,16 @@ class FakeRunTime implements HashRunTime
         return $this->execTime;
     }
 
+    /**
+     * @throws FirstDimensionLimitViolation
+     */
     public function bumpFirstDimension() : void
     {
-        $this->memory = $this->memory + (self::LOAD_INCREASE * $this->memory);
+        $targetMemorySetting = $this->memory + (self::LOAD_INCREASE * $this->memory);
+        if ($targetMemorySetting > self::HARD_MEMORY_LIMIT) {
+            throw new FirstDimensionLimitViolation();
+        }
+        $this->memory = $targetMemorySetting;
         $this->execTime = $this->execTime + (self::LOAD_INCREASE * $this->execTime);
     }
 

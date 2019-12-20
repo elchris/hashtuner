@@ -76,6 +76,9 @@ class TwoDimensionsTunerStrategy implements TunerStrategy
         return $this->runTime->info();
     }
 
+    /**
+     * @throws FirstDimensionLimitViolation
+     */
     private function bumpFirstDimension() : void
     {
         $this->runTime->bumpFirstDimension();
