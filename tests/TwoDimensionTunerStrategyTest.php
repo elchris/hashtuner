@@ -3,6 +3,7 @@
 namespace ChrisHolland\HashTuner\Test;
 
 use ChrisHolland\HashTuner\ExecutionBounds;
+use ChrisHolland\HashTuner\TunerStrategy;
 use ChrisHolland\HashTuner\TwoDimensionsTunerStrategy;
 use PHPUnit\Framework\TestCase;
 
@@ -75,7 +76,7 @@ class TwoDimensionTunerStrategyTest extends TestCase
         self::assertGreaterThan($initialExecTime, $finalExecTime);
     }
 
-    private function getTuner(float $actualExecutionTime): TwoDimensionsTunerStrategy
+    private function getTuner(float $actualExecutionTime): TunerStrategy
     {
         return new TwoDimensionsTunerStrategy(
             new ExecutionBounds(
@@ -91,9 +92,9 @@ class TwoDimensionTunerStrategyTest extends TestCase
     }
 
     /**
-     * @return TwoDimensionsTunerStrategy
+     * @return TunerStrategy
      */
-    private function getFirstDimensionTunedTuner(): TwoDimensionsTunerStrategy
+    private function getFirstDimensionTunedTuner(): TunerStrategy
     {
         $tuner = $this->getTuner(self::INITIAL_EXEC_TIME);
         echo "\n*** RunTime State Start: " . $tuner->getRunTimeInfo();

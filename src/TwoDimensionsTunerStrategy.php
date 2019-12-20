@@ -2,7 +2,7 @@
 
 namespace ChrisHolland\HashTuner;
 
-class TwoDimensionsTunerStrategy
+class TwoDimensionsTunerStrategy implements TunerStrategy
 {
     const FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT = 0.75;
 

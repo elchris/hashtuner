@@ -5,32 +5,22 @@ namespace ChrisHolland\HashTuner;
 class Tuner
 {
     /**
-     * @var TwoDimensionsTunerStrategy
+     * @var TunerStrategy
      */
     private $strategy;
 
     public function __construct(
-        TwoDimensionsTunerStrategy $strategy
+        TunerStrategy $strategy
     ) {
         $this->strategy = $strategy;
     }
 
     public static function getTunedArgonSettings()
     {
-        $tuner = new self(
-            new TwoDimensionsTunerStrategy(
-                new ExecutionBounds(
-                    0.5,
-                    1.0
-                ),
-                new ArgonRunTime(
-                    512000,
-                    3
-                )
-            )
-        );
-        $tuner->tune();
-        return $tuner->getTuningResult();
+        $defaultLow = 0.5;
+        $defaultHigh = 1.0;
+
+        return self::getTunedArgonSettingsForSpeed($defaultLow, $defaultHigh);
     }
 
     public function tune() : void
@@ -41,5 +31,24 @@ class Tuner
     public function getTuningResult() : TuningResult
     {
         return $this->strategy->getTuningResult();
+    }
+
+    public static function getTunedArgonSettingsForSpeed(float $low, float $high): TuningResult
+    {
+        $tuner = new self(
+            new TwoDimensionsTunerStrategy(
+                new ExecutionBounds(
+                    $low,
+                    $high
+                ),
+                new ArgonRunTime(
+                    512000,
+                    3
+                )
+            )
+        );
+        $tuner->tune();
+
+        return $tuner->getTuningResult();
     }
 }
