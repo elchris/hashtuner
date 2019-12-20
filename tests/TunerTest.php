@@ -2,7 +2,7 @@
 
 namespace ChrisHolland\HashTuner\Test;
 
-use ChrisHolland\HashTuner\Tuner;
+use ChrisHolland\HashTuner\TwoDimensionsTuner;
 use PHPUnit\Framework\TestCase;
 
 class TunerTest extends TestCase
@@ -25,7 +25,7 @@ class TunerTest extends TestCase
         self::assertFalse($tuner->isAcceptable());
 
         $executionTimeWithinMemoryBump =
-            (self::UPPER * Tuner::FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT)
+            (self::UPPER * TwoDimensionsTuner::FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT)
             - 0.05
         ;
         $tuner = $this->getTuner($executionTimeWithinMemoryBump);
@@ -33,7 +33,7 @@ class TunerTest extends TestCase
         self::assertFalse($tuner->hasReachedFirstDimensionBumpStopThreshold());
 
         $executionTimePastMemoryBump =
-            (self::UPPER * Tuner::FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT)
+            (self::UPPER * TwoDimensionsTuner::FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT)
             + 0.01
         ;
         $tuner = $this->getTuner($executionTimePastMemoryBump);
@@ -60,12 +60,12 @@ class TunerTest extends TestCase
         self::assertTrue($tuner->isAcceptable());
     }
 
-    private function getTuner(float $actualExecutionTime): Tuner
+    private function getTuner(float $actualExecutionTime): TwoDimensionsTuner
     {
         $desiredExecutionTimeUpperLimit = self::UPPER;
         $desiredExecutionTimeLowerLimit = self::LOWER;
 
-        return new Tuner(
+        return new TwoDimensionsTuner(
             $desiredExecutionTimeLowerLimit,
             $desiredExecutionTimeUpperLimit,
             new FakeRunTime(
@@ -77,9 +77,9 @@ class TunerTest extends TestCase
     }
 
     /**
-     * @return Tuner
+     * @return TwoDimensionsTuner
      */
-    private function getFirstDimensionTunedTuner(): Tuner
+    private function getFirstDimensionTunedTuner(): TwoDimensionsTuner
     {
         $tuner = $this->getTuner(0.20);
         echo "\n*** RunTime State Start: " . $tuner->getRunTimeInfo();

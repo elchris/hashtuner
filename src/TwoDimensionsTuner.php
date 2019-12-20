@@ -4,7 +4,7 @@ namespace ChrisHolland\HashTuner;
 
 use ChrisHolland\HashTuner\Test\FakeRunTime;
 
-class Tuner
+class TwoDimensionsTuner
 {
     const FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT = 0.75;
 
