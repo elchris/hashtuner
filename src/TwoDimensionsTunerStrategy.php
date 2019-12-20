@@ -26,16 +26,15 @@ class TwoDimensionsTunerStrategy
     private $runTime;
 
     public function __construct(
-        float $desiredExecutionTimeLowerLimit,
-        float $desiredExecutionTimeUpperLimit,
+        ExecutionBounds $bounds,
         FakeRunTime $runTime
     ) {
-        $this->desiredExecutionTimeUpperLimit = $desiredExecutionTimeUpperLimit;
-        $this->desiredExecutionTimeLowerLimit = $desiredExecutionTimeLowerLimit;
+        $this->desiredExecutionTimeLowerLimit = $bounds->lower;
+        $this->desiredExecutionTimeUpperLimit = $bounds->upper;
         $this->firstDimensionBumpStopThreshold =
             self::FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT
             *
-            $this->desiredExecutionTimeUpperLimit;
+            $this->getUpper();
         $this->runTime = $runTime;
     }
 
@@ -61,12 +60,12 @@ class TwoDimensionsTunerStrategy
 
     private function exceededUpperLimit(): bool
     {
-        return $this->getActualExecutionTime() > $this->desiredExecutionTimeUpperLimit;
+        return $this->getActualExecutionTime() > $this->getUpper();
     }
 
     private function hasNotPassedLowerThreshold(): bool
     {
-        return $this->getActualExecutionTime() < $this->desiredExecutionTimeLowerLimit;
+        return $this->getActualExecutionTime() < $this->getLower();
     }
 
     public function hasReachedFirstDimensionBumpStopThreshold(): bool
@@ -125,5 +124,21 @@ class TwoDimensionsTunerStrategy
         $this->tuneFirstDimension();
         $this->tuneSecondDimensionBeyondAcceptability();
         $this->tuneSecondDimensionBackWithinAcceptability();
+    }
+
+    /**
+     * @return float
+     */
+    private function getUpper(): float
+    {
+        return $this->desiredExecutionTimeUpperLimit;
+    }
+
+    /**
+     * @return float
+     */
+    private function getLower(): float
+    {
+        return $this->desiredExecutionTimeLowerLimit;
     }
 }

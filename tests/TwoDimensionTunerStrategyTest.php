@@ -2,6 +2,7 @@
 
 namespace ChrisHolland\HashTuner\Test;
 
+use ChrisHolland\HashTuner\ExecutionBounds;
 use ChrisHolland\HashTuner\TwoDimensionsTunerStrategy;
 use PHPUnit\Framework\TestCase;
 
@@ -76,12 +77,11 @@ class TwoDimensionTunerStrategyTest extends TestCase
 
     private function getTuner(float $actualExecutionTime): TwoDimensionsTunerStrategy
     {
-        $desiredExecutionTimeUpperLimit = self::UPPER;
-        $desiredExecutionTimeLowerLimit = self::LOWER;
-
         return new TwoDimensionsTunerStrategy(
-            $desiredExecutionTimeLowerLimit,
-            $desiredExecutionTimeUpperLimit,
+            new ExecutionBounds(
+                self::LOWER,
+                self::UPPER
+            ),
             new FakeRunTime(
                 4,
                 1024000,
