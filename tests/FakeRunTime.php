@@ -13,13 +13,19 @@ class FakeRunTime
      * @var float
      */
     private $execTime;
+    /**
+     * @var int
+     */
+    private $iterations;
 
     public function __construct(
+        int $initialIterations,
         int $initialMemory,
         float $initialExecTime
     ) {
+        $this->iterations = (int)$initialIterations;
         $this->memory = (float)$initialMemory;
-        $this->execTime = $initialExecTime;
+        $this->execTime = (float)$initialExecTime;
     }
 
     public function getFirstDimension() : float

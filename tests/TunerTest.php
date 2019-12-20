@@ -51,6 +51,7 @@ class TunerTest extends TestCase
             $desiredExecutionTimeLowerLimit,
             $desiredExecutionTimeUpperLimit,
             new FakeRunTime(
+                4,
                 1024000,
                 $actualExecutionTime
             )
