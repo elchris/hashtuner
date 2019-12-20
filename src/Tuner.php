@@ -6,7 +6,7 @@ use ChrisHolland\HashTuner\Test\FakeRunTime;
 
 class Tuner
 {
-    const MEMORY_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT = 0.90;
+    const FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT = 0.90;
 
     /**
      * @var float
@@ -33,7 +33,7 @@ class Tuner
         $this->desiredExecutionTimeUpperLimit = $desiredExecutionTimeUpperLimit;
         $this->desiredExecutionTimeLowerLimit = $desiredExecutionTimeLowerLimit;
         $this->firstDimensionBumpStopThreshold =
-            self::MEMORY_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT
+            self::FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT
             *
             $this->desiredExecutionTimeUpperLimit;
         $this->runTime = $runTime;
