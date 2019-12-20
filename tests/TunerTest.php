@@ -24,12 +24,12 @@ class TunerTest extends TestCase
         $executionTimeWithinMemoryBump = 0.85;
         $tuner = $this->getTuner($executionTimeWithinMemoryBump);
         self::assertTrue($tuner->isAcceptable());
-        self::assertFalse($tuner->hasReachedMemoryBumpStopThreshold());
+        self::assertFalse($tuner->hasReachedFirstDimensionBumpStopThreshold());
 
         $executionTimePastMemoryBump = 0.91;
         $tuner = $this->getTuner($executionTimePastMemoryBump);
         self::assertTrue($tuner->isAcceptable());
-        self::assertTrue($tuner->hasReachedMemoryBumpStopThreshold());
+        self::assertTrue($tuner->hasReachedFirstDimensionBumpStopThreshold());
     }
 
     public function testMemoryBumpLogic()
@@ -40,15 +40,15 @@ class TunerTest extends TestCase
                 (
                     $tuner->isAcceptable()
                     &&
-                    ! $tuner->hasReachedMemoryBumpStopThreshold()
+                    ! $tuner->hasReachedFirstDimensionBumpStopThreshold()
                 )
         ) {
-            $tuner->increaseMemory();
+            $tuner->bumpFirstDimension();
             echo "\n*** RunTime State: ".$tuner->getRunTimeInfo();
         }
 
         self::assertTrue($tuner->isAcceptable());
-        self::assertTrue($tuner->hasReachedMemoryBumpStopThreshold());
+        self::assertTrue($tuner->hasReachedFirstDimensionBumpStopThreshold());
     }
 
     private function getTuner(float $actualExecutionTime): Tuner

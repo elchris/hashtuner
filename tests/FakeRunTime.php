@@ -32,7 +32,7 @@ class FakeRunTime
         return $this->execTime;
     }
 
-    public function bumpMemory()
+    public function bumpFirstDimension()
     {
         $this->memory = $this->memory + (self::LOAD_INCREASE * $this->memory);
         $this->execTime = $this->execTime + (self::LOAD_INCREASE * $this->execTime);

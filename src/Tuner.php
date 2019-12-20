@@ -19,7 +19,7 @@ class Tuner
     /**
      * @var float
      */
-    private $memoryBumpStopThreshold;
+    private $firstDimensionBumpStopThreshold;
     /**
      * @var FakeRunTime
      */
@@ -32,7 +32,7 @@ class Tuner
     ) {
         $this->desiredExecutionTimeUpperLimit = $desiredExecutionTimeUpperLimit;
         $this->desiredExecutionTimeLowerLimit = $desiredExecutionTimeLowerLimit;
-        $this->memoryBumpStopThreshold =
+        $this->firstDimensionBumpStopThreshold =
             self::MEMORY_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT
             *
             $this->desiredExecutionTimeUpperLimit;
@@ -69,9 +69,9 @@ class Tuner
         return $this->getActualExecutionTime() < $this->desiredExecutionTimeLowerLimit;
     }
 
-    public function hasReachedMemoryBumpStopThreshold(): bool
+    public function hasReachedFirstDimensionBumpStopThreshold(): bool
     {
-        return $this->getActualExecutionTime() >= $this->memoryBumpStopThreshold;
+        return $this->getActualExecutionTime() >= $this->firstDimensionBumpStopThreshold;
     }
 
     public function getRunTimeInfo() : string
@@ -79,8 +79,8 @@ class Tuner
         return $this->runTime->getMemory().':'.$this->runTime->getExecutionTime();
     }
 
-    public function increaseMemory()
+    public function bumpFirstDimension() : void
     {
-        $this->runTime->bumpMemory();
+        $this->runTime->bumpFirstDimension();
     }
 }

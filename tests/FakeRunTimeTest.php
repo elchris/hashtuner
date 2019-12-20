@@ -20,7 +20,7 @@ class FakeRunTimeTest extends TestCase
         self::assertSame((float)$initialMemory, $runTime->getMemory());
         self::assertSame((float)$initialExecTime, $runTime->getExecutionTime());
 
-        $runTime->bumpMemory();
+        $runTime->bumpFirstDimension();
 
         self::assertSame(
             $initialMemory + ($initialMemory * $loadIncrease),
