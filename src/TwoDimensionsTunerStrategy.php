@@ -94,7 +94,11 @@ class TwoDimensionsTunerStrategy implements TunerStrategy
                 ! $this->hasReachedFirstDimensionBumpStopThreshold()
             )
         ) {
-            $this->bumpFirstDimension();
+            try {
+                $this->bumpFirstDimension();
+            } catch (FirstDimensionLimitViolation $e) {
+                break;
+            }
         }
     }
 

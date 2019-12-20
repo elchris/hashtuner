@@ -51,6 +51,15 @@ class TwoDimensionTunerStrategyTest extends TestCase
         self::assertTrue($tuner->hasReachedFirstDimensionBumpStopThreshold());
     }
 
+    public function testFirstDimensionTuningExceedsMemoryLimit()
+    {
+        $tuner = $this->getMemoryExceedingTuner();
+        $tuner->tuneFirstDimension();
+        echo "\n ********* Mem Exceeding Status:".$tuner->getRunTimeInfo();
+        self::assertFalse($tuner->isAcceptable());
+        self::assertFalse($tuner->hasReachedFirstDimensionBumpStopThreshold());
+    }
+
     public function testSecondDimensionTuningLogic()
     {
         $tuner = $this->getFirstDimensionTunedTuner();
