@@ -32,19 +32,24 @@ class TunerTest extends TestCase
         self::assertTrue($tuner->hasReachedMemoryBumpStopThreshold());
     }
 
-    //public function testConditions()
-    //{
-        //while
-            //tuner->hasNotPassedLowerThreshold
-            //OR
-            //
-            //tuner->isAcceptable
-            //AND
-            //NOT tuner->hasReachedMemoryBumpStopThreshold
-            //
-            //THEN
-                //Bump up the memory, slower run time
-    //}
+    public function testMemoryBumpLogic()
+    {
+        $tuner = $this->getTuner(0.20);
+        while ($tuner->hasNotPassedLowerThreshold()
+                ||
+                (
+                    $tuner->isAcceptable()
+                    &&
+                    ! $tuner->hasReachedMemoryBumpStopThreshold()
+                )
+        ) {
+            $tuner->increaseMemory();
+            echo "\n*** RunTime State: ".$tuner->getRunTimeInfo();
+        }
+
+        self::assertTrue($tuner->isAcceptable());
+        self::assertTrue($tuner->hasReachedMemoryBumpStopThreshold());
+    }
 
     private function getTuner(float $actualExecutionTime): Tuner
     {

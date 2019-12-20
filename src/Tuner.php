@@ -73,4 +73,14 @@ class Tuner
     {
         return $this->getActualExecutionTime() >= $this->memoryBumpStopThreshold;
     }
+
+    public function getRunTimeInfo() : string
+    {
+        return $this->runTime->getMemory().':'.$this->runTime->getExecutionTime();
+    }
+
+    public function increaseMemory()
+    {
+        $this->runTime->bumpMemory();
+    }
 }
