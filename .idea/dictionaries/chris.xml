@@ -3,11 +3,14 @@
     <words>
       <w>chrisholland</w>
       <w>codesniffer</w>
+      <w>cpuinfo</w>
       <w>elchris</w>
+      <w>freebsd</w>
       <w>hashtuner</w>
       <w>ncpu</w>
       <w>squizlabs</w>
       <w>sysctl</w>
+      <w>uname</w>
     </words>
   </dictionary>
 </component>

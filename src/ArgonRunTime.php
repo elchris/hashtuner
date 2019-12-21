@@ -99,8 +99,6 @@ class ArgonRunTime implements HashRunTime
 
     private function getThreadsFromSystem() : int
     {
-        $command = "sysctl -n hw.ncpu";
-        $cores = intval(shell_exec($command));
-        return $cores * 2;
+        return $this->systemInfo->getCores() * 2;
     }
 }
