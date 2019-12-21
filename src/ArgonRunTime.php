@@ -66,7 +66,7 @@ class ArgonRunTime implements HashRunTime
      */
     public function bumpFirstDimension(): void
     {
-        $limitInKiloBytes = (new MemoryInfo())->getMemoryLimitInKiloBytes();
+        $limitInKiloBytes = (new SystemInfo())->getMemoryLimitInKiloBytes();
 
         $targetMemory = $this->memory + (self::MEMORY_INCREASE_PERCENTAGE * $this->memory);
         if ($targetMemory > $limitInKiloBytes) {

@@ -5,7 +5,7 @@ namespace ChrisHolland\HashTuner\Test;
 use BrandEmbassy\Memory\MemoryLimitNotSetException;
 use ChrisHolland\HashTuner\ArgonRunTime;
 use ChrisHolland\HashTuner\FirstDimensionLimitViolation;
-use ChrisHolland\HashTuner\MemoryInfo;
+use ChrisHolland\HashTuner\SystemInfo;
 use PHPUnit\Framework\TestCase;
 
 class ArgonRunTimeTest extends TestCase
@@ -16,7 +16,7 @@ class ArgonRunTimeTest extends TestCase
      */
     public function testMemoryHardLimitViolation()
     {
-        $limitInKiloBytes = (new MemoryInfo())->getMemoryLimitInKiloBytes();
+        $limitInKiloBytes = (new SystemInfo())->getMemoryLimitInKiloBytes();
 
         $attemptedLimit = $limitInKiloBytes * 1.1;
 

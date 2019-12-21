@@ -6,7 +6,7 @@ use BrandEmbassy\Memory\MemoryConfiguration;
 use BrandEmbassy\Memory\MemoryLimitNotSetException;
 use BrandEmbassy\Memory\MemoryLimitProvider;
 
-class MemoryInfo
+class SystemInfo
 {
     /**
      * @var int
@@ -14,7 +14,7 @@ class MemoryInfo
     private $limitInKiloBytes;
 
     /**
-     * MemoryInfo constructor.
+     * SystemInfo constructor.
      * @throws MemoryLimitNotSetException
      */
     public function __construct()
