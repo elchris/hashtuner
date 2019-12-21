@@ -46,7 +46,7 @@ class SystemInfo
         return $this->limitInKiloBytes;
     }
 
-    public function getCores()
+    public function getCores() : int
     {
         //cribbed from https://wp-mix.com/php-get-server-information/
         $cmd = $this->getCoresCommand();

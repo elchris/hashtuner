@@ -6,11 +6,23 @@ use ChrisHolland\HashTuner\DTO\ExecutionBounds;
 use ChrisHolland\HashTuner\DTO\TuningResult;
 use ChrisHolland\HashTuner\RunTime\ArgonRunTime;
 use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
+use ChrisHolland\HashTuner\SystemInfo;
 use ChrisHolland\HashTuner\Tuner;
 use PHPUnit\Framework\TestCase;
 
 class TunerTest extends TestCase
 {
+    /**
+     * @var int
+     */
+    private $threads;
+
+    public function setUp() : void
+    {
+        $info = new SystemInfo();
+        $cores = $info->getCores();
+        $this->threads = $cores * 2;
+    }
     public function testTunerWithFakeRunTime()
     {
         $tuner = new Tuner(
@@ -31,7 +43,7 @@ class TunerTest extends TestCase
 
         self::assertSame(3888638, $result->memory);
         self::assertSame(5, $result->iterations);
-        self::assertSame(16, $result->threads);
+        self::assertSame($this->threads, $result->threads);
         self::assertSame(0.9493745839581, $result->executionTime);
     }
 
@@ -50,7 +62,7 @@ class TunerTest extends TestCase
         $tuner->tune();
         $result = $tuner->getTuningResult();
         $this->assertResultCorrectness($result);
-        self::assertSame(16, $result->threads);
+        self::assertSame($this->threads, $result->threads);
         var_dump($result);
     }
 
@@ -58,7 +70,7 @@ class TunerTest extends TestCase
     {
         $result = Tuner::getTunedArgonSettings();
         $this->assertResultCorrectness($result);
-        self::assertSame(16, $result->threads);
+        self::assertSame($this->threads, $result->threads);
         var_dump($result);
     }
 
