@@ -1,6 +1,6 @@
 <?php
 
-namespace ChrisHolland\HashTuner;
+namespace ChrisHolland\HashTuner\DTO;
 
 class TuningResult
 {

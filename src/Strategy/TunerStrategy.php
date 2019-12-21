@@ -2,7 +2,7 @@
 
 namespace ChrisHolland\HashTuner\Strategy;
 
-use ChrisHolland\HashTuner\TuningResult;
+use ChrisHolland\HashTuner\DTO\TuningResult;
 
 interface TunerStrategy
 {

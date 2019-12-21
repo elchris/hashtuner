@@ -2,11 +2,11 @@
 
 namespace ChrisHolland\HashTuner\Test;
 
-use ChrisHolland\HashTuner\ExecutionBounds;
+use ChrisHolland\HashTuner\DTO\ExecutionBounds;
+use ChrisHolland\HashTuner\DTO\TuningResult;
 use ChrisHolland\HashTuner\RunTime\ArgonRunTime;
 use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
 use ChrisHolland\HashTuner\Tuner;
-use ChrisHolland\HashTuner\TuningResult;
 use PHPUnit\Framework\TestCase;
 
 class TunerTest extends TestCase

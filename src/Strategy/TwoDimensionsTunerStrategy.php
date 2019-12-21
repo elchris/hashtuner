@@ -2,10 +2,10 @@
 
 namespace ChrisHolland\HashTuner\Strategy;
 
+use ChrisHolland\HashTuner\DTO\ExecutionBounds;
+use ChrisHolland\HashTuner\DTO\TuningResult;
 use ChrisHolland\HashTuner\Exception\FirstDimensionLimitViolation;
-use ChrisHolland\HashTuner\ExecutionBounds;
 use ChrisHolland\HashTuner\RunTime\HashRunTime;
-use ChrisHolland\HashTuner\TuningResult;
 
 class TwoDimensionsTunerStrategy implements TunerStrategy
 {

@@ -2,7 +2,7 @@
 
 namespace ChrisHolland\HashTuner\Test;
 
-use ChrisHolland\HashTuner\ExecutionBounds;
+use ChrisHolland\HashTuner\DTO\ExecutionBounds;
 use ChrisHolland\HashTuner\Strategy\TunerStrategy;
 use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
 use PHPUnit\Framework\TestCase;
