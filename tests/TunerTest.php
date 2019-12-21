@@ -4,9 +4,9 @@ namespace ChrisHolland\HashTuner\Test;
 
 use ChrisHolland\HashTuner\ExecutionBounds;
 use ChrisHolland\HashTuner\RunTime\ArgonRunTime;
+use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
 use ChrisHolland\HashTuner\Tuner;
 use ChrisHolland\HashTuner\TuningResult;
-use ChrisHolland\HashTuner\TwoDimensionsTunerStrategy;
 use PHPUnit\Framework\TestCase;
 
 class TunerTest extends TestCase

@@ -1,6 +1,8 @@
 <?php
 
-namespace ChrisHolland\HashTuner;
+namespace ChrisHolland\HashTuner\Strategy;
+
+use ChrisHolland\HashTuner\TuningResult;
 
 interface TunerStrategy
 {

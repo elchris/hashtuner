@@ -1,8 +1,11 @@
 <?php
 
-namespace ChrisHolland\HashTuner;
+namespace ChrisHolland\HashTuner\Strategy;
 
+use ChrisHolland\HashTuner\ExecutionBounds;
+use ChrisHolland\HashTuner\FirstDimensionLimitViolation;
 use ChrisHolland\HashTuner\RunTime\HashRunTime;
+use ChrisHolland\HashTuner\TuningResult;
 
 class TwoDimensionsTunerStrategy implements TunerStrategy
 {
