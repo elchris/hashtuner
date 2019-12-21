@@ -2,6 +2,8 @@
 
 namespace ChrisHolland\HashTuner;
 
+use ChrisHolland\HashTuner\RunTime\ArgonRunTime;
+
 class Tuner
 {
     /**

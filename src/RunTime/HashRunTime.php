@@ -1,6 +1,8 @@
 <?php
 
-namespace ChrisHolland\HashTuner;
+namespace ChrisHolland\HashTuner\RunTime;
+
+use ChrisHolland\HashTuner\FirstDimensionLimitViolation;
 
 interface HashRunTime
 {

@@ -3,8 +3,8 @@
 namespace ChrisHolland\HashTuner\Test;
 
 use BrandEmbassy\Memory\MemoryLimitNotSetException;
-use ChrisHolland\HashTuner\ArgonRunTime;
 use ChrisHolland\HashTuner\FirstDimensionLimitViolation;
+use ChrisHolland\HashTuner\RunTime\ArgonRunTime;
 use ChrisHolland\HashTuner\SystemInfo;
 use PHPUnit\Framework\TestCase;
 

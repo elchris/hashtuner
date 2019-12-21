@@ -2,8 +2,8 @@
 
 namespace ChrisHolland\HashTuner\Test;
 
-use ChrisHolland\HashTuner\ArgonRunTime;
 use ChrisHolland\HashTuner\ExecutionBounds;
+use ChrisHolland\HashTuner\RunTime\ArgonRunTime;
 use ChrisHolland\HashTuner\Tuner;
 use ChrisHolland\HashTuner\TuningResult;
 use ChrisHolland\HashTuner\TwoDimensionsTunerStrategy;

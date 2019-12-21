@@ -2,8 +2,8 @@
 
 namespace ChrisHolland\HashTuner\Test;
 
-use ChrisHolland\HashTuner\HashRunTime;
 use ChrisHolland\HashTuner\FirstDimensionLimitViolation;
+use ChrisHolland\HashTuner\RunTime\HashRunTime;
 
 class FakeRunTime implements HashRunTime
 {

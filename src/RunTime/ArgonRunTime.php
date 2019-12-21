@@ -1,6 +1,9 @@
 <?php
 
-namespace ChrisHolland\HashTuner;
+namespace ChrisHolland\HashTuner\RunTime;
+
+use ChrisHolland\HashTuner\FirstDimensionLimitViolation;
+use ChrisHolland\HashTuner\SystemInfo;
 
 class ArgonRunTime implements HashRunTime
 {
