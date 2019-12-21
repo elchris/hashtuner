@@ -2,7 +2,7 @@
 
 namespace ChrisHolland\HashTuner\RunTime;
 
-use ChrisHolland\HashTuner\FirstDimensionLimitViolation;
+use ChrisHolland\HashTuner\Exception\FirstDimensionLimitViolation;
 
 interface HashRunTime
 {
