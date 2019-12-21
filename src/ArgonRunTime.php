@@ -2,8 +2,6 @@
 
 namespace ChrisHolland\HashTuner;
 
-use BrandEmbassy\Memory\MemoryLimitNotSetException;
-
 class ArgonRunTime implements HashRunTime
 {
     const MEMORY_INCREASE_PERCENTAGE = 0.10;
@@ -23,11 +21,13 @@ class ArgonRunTime implements HashRunTime
      * @var float
      */
     private $execTime;
+    private $systemInfo;
 
     public function __construct(
         int $initialMemory,
         int $initialIterations
     ) {
+        $this->systemInfo = new SystemInfo();
         $this->memory = (float)$initialMemory;
         $this->iterations = $initialIterations;
         $this->threads = $this->getThreadsFromSystem();
@@ -62,11 +62,10 @@ class ArgonRunTime implements HashRunTime
 
     /**
      * @throws FirstDimensionLimitViolation
-     * @throws MemoryLimitNotSetException
      */
     public function bumpFirstDimension(): void
     {
-        $limitInKiloBytes = (new SystemInfo())->getMemoryLimitInKiloBytes();
+        $limitInKiloBytes = $this->systemInfo->getMemoryLimitInKiloBytes();
 
         $targetMemory = $this->memory + (self::MEMORY_INCREASE_PERCENTAGE * $this->memory);
         if ($targetMemory > $limitInKiloBytes) {
