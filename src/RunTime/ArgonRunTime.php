@@ -25,16 +25,22 @@ class ArgonRunTime implements HashRunTime
      */
     private $execTime;
     private $systemInfo;
+    /**
+     * @var int|null
+     */
+    private $memoryLimitInKilobytesOverride;
 
     public function __construct(
         int $initialMemory,
-        int $initialIterations
+        int $initialIterations,
+        ?int $memoryLimitInKilobytesOverride = null
     ) {
         $this->systemInfo = new SystemInfo();
         $this->memory = (float)$initialMemory;
         $this->iterations = $initialIterations;
         $this->threads = $this->getThreadsFromSystem();
         $this->execute();
+        $this->memoryLimitInKilobytesOverride = $memoryLimitInKilobytesOverride;
     }
 
     private function execute() : void
@@ -68,7 +74,7 @@ class ArgonRunTime implements HashRunTime
      */
     public function bumpFirstDimension(): void
     {
-        $limitInKiloBytes = $this->systemInfo->getMemoryLimitInKiloBytes();
+        $limitInKiloBytes = $this->getHardMemoryLimitInKilobytes();
 
         $targetMemory = $this->memory + (self::MEMORY_INCREASE_PERCENTAGE * $this->memory);
         if ($targetMemory > $limitInKiloBytes) {
@@ -103,5 +109,17 @@ class ArgonRunTime implements HashRunTime
     private function getThreadsFromSystem() : int
     {
         return $this->systemInfo->getCores() * 2;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHardMemoryLimitInKilobytes(): int
+    {
+        if ($this->memoryLimitInKilobytesOverride === null) {
+            return $this->systemInfo->getMemoryLimitInKiloBytes();
+        } else {
+            return $this->memoryLimitInKilobytesOverride;
+        }
     }
 }

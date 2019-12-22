@@ -22,4 +22,6 @@ interface HashRunTime
     public function lowerSecondDimensionOneStep(): void;
 
     public function getThirdDimension(): int;
+
+    public function getHardMemoryLimitInKilobytes(): int;
 }

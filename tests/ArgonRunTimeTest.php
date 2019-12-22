@@ -37,4 +37,15 @@ class ArgonRunTimeTest extends TestCase
             "***** ArgonRunTimeTest::testMemoryHardLimitViolation Execution: "
             .$runTime->getExecutionTime();
     }
+
+    public function testMemoryLimitOverride()
+    {
+        $runTime = new ArgonRunTime(
+            128000,
+            3,
+            256000
+        );
+
+        self::assertSame(256000, $runTime->getHardMemoryLimitInKilobytes());
+    }
 }

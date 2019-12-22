@@ -49,7 +49,7 @@ class FakeRunTime implements HashRunTime
     public function bumpFirstDimension() : void
     {
         $targetMemorySetting = $this->memory + (self::LOAD_INCREASE * $this->memory);
-        if ($targetMemorySetting > self::HARD_MEMORY_LIMIT) {
+        if ($targetMemorySetting > $this->getHardMemoryLimitInKilobytes()) {
             throw new FirstDimensionLimitViolation();
         }
         $this->memory = $targetMemorySetting;
@@ -81,5 +81,10 @@ class FakeRunTime implements HashRunTime
     public function getThirdDimension() : int
     {
         return 16;
+    }
+
+    public function getHardMemoryLimitInKilobytes(): int
+    {
+        return self::HARD_MEMORY_LIMIT;
     }
 }
