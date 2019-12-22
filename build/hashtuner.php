@@ -1,2 +1,0 @@
-<?php
-//work in progress.

@@ -1,0 +1,10 @@
+{
+  "main": "./src/index.php",
+  "files": [
+    "composer.json",
+    "composer.lock"
+  ],
+  "directories": ["src"],
+  "force-autodiscovery": true,
+  "output": "hashtuner.phar"
+}
