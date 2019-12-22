@@ -10,6 +10,8 @@ use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
 
 class Tuner
 {
+    const DEFAULT_EXECUTION_LOW = 0.5;
+    const DEFAULT_EXECUTION_HIGH = 1.0;
     /**
      * @var TunerStrategy
      */
@@ -23,10 +25,10 @@ class Tuner
 
     public static function getTunedArgonSettings()
     {
-        $defaultLow = 0.5;
-        $defaultHigh = 1.0;
-
-        return self::getTunedArgonSettingsForSpeed($defaultLow, $defaultHigh);
+        return self::getTunedArgonSettingsForSpeed(
+            self::DEFAULT_EXECUTION_LOW,
+            self::DEFAULT_EXECUTION_HIGH
+        );
     }
 
     public function tune() : void
@@ -41,7 +43,20 @@ class Tuner
 
     public static function getTunedArgonSettingsForSpeed(float $low, float $high): TuningResult
     {
-        $tuner = new self(
+        $tuner = self::getArgonTunerForSpeed($low, $high);
+        $tuner->tune();
+
+        return $tuner->getTuningResult();
+    }
+
+    /**
+     * @param float $low
+     * @param float $high
+     * @return Tuner
+     */
+    public static function getArgonTunerForSpeed(float $low, float $high): Tuner
+    {
+        return new self(
             new TwoDimensionsTunerStrategy(
                 new ExecutionBounds(
                     $low,
@@ -53,8 +68,19 @@ class Tuner
                 )
             )
         );
-        $tuner->tune();
+    }
 
-        return $tuner->getTuningResult();
+    public static function getArgonTuner() : Tuner
+    {
+        return self::getArgonTunerForSpeed(
+            self::DEFAULT_EXECUTION_LOW,
+            self::DEFAULT_EXECUTION_HIGH
+        );
+    }
+
+    public static function getArgonTunerWithStrategy(
+        TunerStrategy $strategy
+    ) {
+        return new self($strategy);
     }
 }

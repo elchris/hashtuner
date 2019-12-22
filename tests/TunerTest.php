@@ -50,13 +50,7 @@ class TunerTest extends TestCase
     public function testTunerWithArgonRunTime()
     {
         $tuner = new Tuner(
-            new TwoDimensionsTunerStrategy(
-                $this->getExecutionBounds(),
-                new ArgonRunTime(
-                    512000,
-                    3
-                )
-            )
+            $this->getTwoDimensionsTunerStrategy()
         );
 
         $tuner->tune();
@@ -66,12 +60,27 @@ class TunerTest extends TestCase
         var_dump($result);
     }
 
-    public function testArgonTunerWithDefaults()
+    public function testArgonTunerResultsWithDefaults()
     {
         $result = Tuner::getTunedArgonSettings();
         $this->assertResultCorrectness($result);
-        self::assertSame($this->threads, $result->threads);
         var_dump($result);
+    }
+
+    public function testArgonTunerWithDefaults()
+    {
+        $tuner = Tuner::getArgonTuner();
+        $tuner->tune();
+        $this->assertResultCorrectness($tuner->getTuningResult());
+    }
+
+    public function testArgonTunerWithCustomStrategy()
+    {
+        $tuner = Tuner::getArgonTunerWithStrategy(
+            $this->getTwoDimensionsTunerStrategy()
+        );
+        $tuner->tune();
+        $this->assertResultCorrectness($tuner->getTuningResult());
     }
 
     /**
@@ -95,5 +104,20 @@ class TunerTest extends TestCase
         self::assertIsInt($result->iterations);
         self::assertIsInt($result->threads);
         self::assertIsFloat($result->executionTime);
+        self::assertSame($this->threads, $result->threads);
+    }
+
+    /**
+     * @return TwoDimensionsTunerStrategy
+     */
+    private function getTwoDimensionsTunerStrategy(): TwoDimensionsTunerStrategy
+    {
+        return new TwoDimensionsTunerStrategy(
+            $this->getExecutionBounds(),
+            new ArgonRunTime(
+                512000,
+                3
+            )
+        );
     }
 }
