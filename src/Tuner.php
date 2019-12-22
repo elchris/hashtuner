@@ -48,7 +48,7 @@ class Tuner
                     $high
                 ),
                 new ArgonRunTime(
-                    512000,
+                    128000,
                     3
                 )
             )
