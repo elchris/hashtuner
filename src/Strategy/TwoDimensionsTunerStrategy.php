@@ -158,6 +158,8 @@ class TwoDimensionsTunerStrategy implements TunerStrategy
     public function getTuningResult() : TuningResult
     {
         return new TuningResult(
+            $this->desiredExecutionTimeLowerLimit,
+            $this->desiredExecutionTimeUpperLimit,
             $this->runTime->getFirstDimension(),
             $this->runTime->getSecondDimension(),
             $this->runTime->getThirdDimension(),

@@ -12,6 +12,8 @@ class Tuner
 {
     const DEFAULT_EXECUTION_LOW = 0.5;
     const DEFAULT_EXECUTION_HIGH = 1.0;
+    const DEFAULT_INITIAL_MEMORY = 128000;
+    const DEFAULT_INITIAL_ITERATIONS = 3;
     /**
      * @var TunerStrategy
      */
@@ -63,8 +65,8 @@ class Tuner
                     $high
                 ),
                 new ArgonRunTime(
-                    128000,
-                    3
+                    self::DEFAULT_INITIAL_MEMORY,
+                    self::DEFAULT_INITIAL_ITERATIONS
                 )
             )
         );

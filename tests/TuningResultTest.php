@@ -10,6 +10,8 @@ class TuningResultTest extends TestCase
     public function testJsonOutput()
     {
         $result = new TuningResult(
+            0.5,
+            1.0,
             128000,
             4,
             16,

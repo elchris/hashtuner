@@ -20,8 +20,18 @@ class TuningResult
      * @var float
      */
     public $executionTime;
+    /**
+     * @var float
+     */
+    public $desiredExecutionLow;
+    /**
+     * @var float
+     */
+    public $desiredExecutionHigh;
 
     public function __construct(
+        float $desiredExecutionLow,
+        float $desiredExecutionHigh,
         float $memory,
         int $iterations,
         int $threads,
@@ -31,6 +41,8 @@ class TuningResult
         $this->iterations = $iterations;
         $this->threads = $threads;
         $this->executionTime = $executionTime;
+        $this->desiredExecutionLow = $desiredExecutionLow;
+        $this->desiredExecutionHigh = $desiredExecutionHigh;
     }
 
     public function toJson() : string

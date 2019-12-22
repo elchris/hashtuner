@@ -12,6 +12,8 @@ use PHPUnit\Framework\TestCase;
 
 class TunerTest extends TestCase
 {
+    const DEFAULT_EXECUTION_LOW = 0.5;
+    const DEFAULT_EXECUTION_HIGH = 1.0;
     /**
      * @var int
      */
@@ -39,7 +41,7 @@ class TunerTest extends TestCase
         $tuner->tune();
         $result = $tuner->getTuningResult();
 
-        $this->assertResultCorrectness($result);
+        $this->assertResultCorrectness($result, false);
 
         self::assertSame(3888638, $result->memory);
         self::assertSame(5, $result->iterations);
@@ -55,7 +57,7 @@ class TunerTest extends TestCase
 
         $tuner->tune();
         $result = $tuner->getTuningResult();
-        $this->assertResultCorrectness($result);
+        $this->assertResultCorrectness($result, false);
         self::assertSame($this->threads, $result->threads);
         var_dump($result);
     }
@@ -71,7 +73,7 @@ class TunerTest extends TestCase
     {
         $tuner = Tuner::getArgonTuner();
         $tuner->tune();
-        $this->assertResultCorrectness($tuner->getTuningResult());
+        $this->assertResultCorrectness($tuner->getTuningResult(), false);
     }
 
     public function testArgonTunerWithCustomStrategy()
@@ -80,7 +82,7 @@ class TunerTest extends TestCase
             $this->getTwoDimensionsTunerStrategy()
         );
         $tuner->tune();
-        $this->assertResultCorrectness($tuner->getTuningResult());
+        $this->assertResultCorrectness($tuner->getTuningResult(), false);
     }
 
     /**
@@ -89,15 +91,12 @@ class TunerTest extends TestCase
     private function getExecutionBounds(): ExecutionBounds
     {
         return new ExecutionBounds(
-            0.5,
-            1.0
+            self::DEFAULT_EXECUTION_LOW,
+            self::DEFAULT_EXECUTION_HIGH
         );
     }
 
-    /**
-     * @param TuningResult $result
-     */
-    private function assertResultCorrectness(TuningResult $result): void
+    private function assertResultCorrectness(TuningResult $result, bool $useTunerDefaults = false): void
     {
         self::assertInstanceOf(TuningResult::class, $result);
         self::assertIsInt($result->memory);
@@ -105,6 +104,25 @@ class TunerTest extends TestCase
         self::assertIsInt($result->threads);
         self::assertIsFloat($result->executionTime);
         self::assertSame($this->threads, $result->threads);
+        if (!$useTunerDefaults) {
+            self::assertSame(
+                self::DEFAULT_EXECUTION_LOW,
+                $result->desiredExecutionLow
+            );
+            self::assertSame(
+                self::DEFAULT_EXECUTION_HIGH,
+                $result->desiredExecutionHigh
+            );
+        } else {
+            self::assertSame(
+                Tuner::DEFAULT_EXECUTION_LOW,
+                $result->desiredExecutionLow
+            );
+            self::assertSame(
+                Tuner::DEFAULT_EXECUTION_HIGH,
+                $result->desiredExecutionHigh
+            );
+        }
     }
 
     /**
