@@ -16,7 +16,7 @@ $p = new Phar($pharFile);
 $p->buildFromDirectory('src/');
 
 // pointing main file which requires all classes
-$p->setDefaultStub('../index.php');
+$p->setDefaultStub('index.php');
 
 // plus - compressing it into gzip
 $p->compress(Phar::GZ);
