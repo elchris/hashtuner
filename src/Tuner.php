@@ -43,11 +43,52 @@ class Tuner
         return $this->strategy->getTuningResult();
     }
 
-    public static function getTunedArgonSettingsForSpeed(float $low, float $high): TuningResult
-    {
+    public static function getTunedArgonSettingsForSpeed(
+        float $low,
+        float $high
+    ): TuningResult {
         $tuner = self::getArgonTunerForSpeed($low, $high);
         $tuner->tune();
 
+        return $tuner->getTuningResult();
+    }
+
+    public static function getTunedArgonSettingsForMemoryLimit(
+        int $hardMemoryLimit
+    ): TuningResult {
+        $tuner = new self(
+            new TwoDimensionsTunerStrategy(
+                self::getDefaultExecutionBounds(),
+                new ArgonRunTime(
+                    self::DEFAULT_INITIAL_MEMORY,
+                    self::DEFAULT_INITIAL_ITERATIONS,
+                    $hardMemoryLimit
+                )
+            )
+        );
+        $tuner->tune();
+        return $tuner->getTuningResult();
+    }
+
+    public static function getTunedArgonSettingsForSpeedAndMemoryLimit(
+        float $low,
+        float $high,
+        int $hardMemoryLimit
+    ): TuningResult {
+        $tuner = new self(
+            new TwoDimensionsTunerStrategy(
+                new ExecutionBounds(
+                    $low,
+                    $high
+                ),
+                new ArgonRunTime(
+                    self::DEFAULT_INITIAL_MEMORY,
+                    self::DEFAULT_INITIAL_ITERATIONS,
+                    $hardMemoryLimit
+                )
+            )
+        );
+        $tuner->tune();
         return $tuner->getTuningResult();
     }
 
@@ -84,5 +125,16 @@ class Tuner
         TunerStrategy $strategy
     ) {
         return new self($strategy);
+    }
+
+    /**
+     * @return ExecutionBounds
+     */
+    private static function getDefaultExecutionBounds(): ExecutionBounds
+    {
+        return new ExecutionBounds(
+            self::DEFAULT_EXECUTION_LOW,
+            self::DEFAULT_EXECUTION_HIGH
+        );
     }
 }

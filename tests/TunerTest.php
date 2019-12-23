@@ -76,6 +76,26 @@ class TunerTest extends TestCase
         $this->assertResultCorrectness($tuner->getTuningResult(), false);
     }
 
+    public function testArgonTunerWithCustomSpeedAndMemoryLimit()
+    {
+        $results = Tuner::getTunedArgonSettingsForSpeedAndMemoryLimit(
+            0.5,
+            1.0,
+            256000
+        );
+        var_dump($results);
+        $this->assertResultCorrectness($results);
+    }
+
+    public function testArgonTunerWithCustomMemoryLimit()
+    {
+        $results = Tuner::getTunedArgonSettingsForMemoryLimit(
+            256000
+        );
+        var_dump($results);
+        $this->assertResultCorrectness($results);
+    }
+
     public function testArgonTunerWithCustomStrategy()
     {
         $tuner = Tuner::getArgonTunerWithStrategy(
