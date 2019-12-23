@@ -7,7 +7,7 @@ use ChrisHolland\HashTuner\Tuners\Tuner;
 
 class TunerTest extends BaseTunerTest
 {
-    public function testTunerWithFakeRunTime()
+    public function testTunerWithFakeRunTime(): void
     {
         $tuner = new Tuner(
             new TwoDimensionsTunerStrategy(

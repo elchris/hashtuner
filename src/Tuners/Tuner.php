@@ -8,8 +8,8 @@ use ChrisHolland\HashTuner\Strategy\TunerStrategy;
 
 class Tuner
 {
-    const DEFAULT_EXECUTION_LOW = 0.5;
-    const DEFAULT_EXECUTION_HIGH = 1.0;
+    public const DEFAULT_EXECUTION_LOW = 0.5;
+    public const DEFAULT_EXECUTION_HIGH = 1.0;
 
     /**
      * @var TunerStrategy
@@ -34,7 +34,7 @@ class Tuner
 
     public static function getTunerWithStrategy(
         TunerStrategy $strategy
-    ) {
+    ): Tuner {
         return new self($strategy);
     }
 

@@ -9,7 +9,7 @@ use ChrisHolland\HashTuner\Tuners\Tuner;
 
 class ArgonTunerTest extends BaseTunerTest
 {
-    public function testTunerWithArgonRunTime()
+    public function testTunerWithArgonRunTime(): void
     {
         $tuner = new Tuner(
             $this->getArgonTwoDimensionsTunerStrategy()
@@ -21,20 +21,20 @@ class ArgonTunerTest extends BaseTunerTest
         self::assertSame($this->threads, $result->threads);
     }
 
-    public function testArgonTunerResultsWithDefaults()
+    public function testArgonTunerResultsWithDefaults(): void
     {
         $result = ArgonTuner::getTunedArgonSettings();
         $this->assertResultCorrectness($result);
     }
 
-    public function testArgonTunerWithDefaults()
+    public function testArgonTunerWithDefaults(): void
     {
         $tuner = ArgonTuner::getArgonTuner();
         $tuner->tune();
         $this->assertResultCorrectness($tuner->getTuningResult(), false);
     }
 
-    public function testArgonTunerWithCustomSpeedAndMemoryLimit()
+    public function testArgonTunerWithCustomSpeedAndMemoryLimit(): void
     {
         $results = ArgonTuner::getTunedArgonSettingsForSpeedAndMemoryLimit(
             0.5,
@@ -44,7 +44,7 @@ class ArgonTunerTest extends BaseTunerTest
         $this->assertResultCorrectness($results);
     }
 
-    public function testArgonTunerWithCustomMemoryLimit()
+    public function testArgonTunerWithCustomMemoryLimit(): void
     {
         $results = ArgonTuner::getTunedArgonSettingsForMemoryLimit(
             256000
@@ -52,7 +52,7 @@ class ArgonTunerTest extends BaseTunerTest
         $this->assertResultCorrectness($results);
     }
 
-    public function testArgonTunerWithCustomStrategy()
+    public function testArgonTunerWithCustomStrategy(): void
     {
         $tuner = Tuner::getTunerWithStrategy(
             $this->getArgonTwoDimensionsTunerStrategy()

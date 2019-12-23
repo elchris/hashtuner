@@ -9,10 +9,10 @@ use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
 
 class ArgonTuner
 {
-    const DEFAULT_INITIAL_MEMORY = 128000;
-    const DEFAULT_INITIAL_ITERATIONS = 3;
+    public const DEFAULT_INITIAL_MEMORY = 32 * 1024;
+    public const DEFAULT_INITIAL_ITERATIONS = 3;
 
-    public static function getTunedArgonSettings()
+    public static function getTunedArgonSettings(): TuningResult
     {
         return self::getTunedArgonSettingsForSpeed(
             Tuner::DEFAULT_EXECUTION_LOW,

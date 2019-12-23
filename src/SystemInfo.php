@@ -8,12 +8,12 @@ use BrandEmbassy\Memory\MemoryLimitProvider;
 
 class SystemInfo
 {
-    const LINUX = 'linux';
-    const FREEBSD = 'freebsd';
-    const DARWIN = 'darwin';
-    const LINUX_PROCESSORS_COMMAND = 'cat /proc/cpuinfo | grep processor | wc -l';
-    const FREEBSD_PROCESSORS_COMMAND = 'sysctl -a | grep \'hw.ncpu\' | cut -d \':\' -f2';
-    const DARWIN_PROCESSORS_COMMAND = 'sysctl -n hw.ncpu';
+    public const LINUX = 'linux';
+    public const FREEBSD = 'freebsd';
+    public const DARWIN = 'darwin';
+    public const LINUX_PROCESSORS_COMMAND = 'cat /proc/cpuinfo | grep processor | wc -l';
+    public const FREEBSD_PROCESSORS_COMMAND = 'sysctl -a | grep \'hw.ncpu\' | cut -d \':\' -f2';
+    public const DARWIN_PROCESSORS_COMMAND = 'sysctl -n hw.ncpu';
     /**
      * @var int
      */
@@ -33,7 +33,7 @@ class SystemInfo
         $configuration = new MemoryConfiguration();
         $limitProvider = new MemoryLimitProvider($configuration);
         $limitInBytes = $limitProvider->getLimitInBytes();
-        $this->limitInKiloBytes = intval($limitInBytes / 1024);
+        $this->limitInKiloBytes = (int)($limitInBytes / 1024);
         if ($OsOverride === null) {
             $this->OS = strtolower(trim(shell_exec('uname')));
         } else {
@@ -41,7 +41,7 @@ class SystemInfo
         }
     }
 
-    public function getMemoryLimitInKiloBytes()
+    public function getMemoryLimitInKiloBytes(): int
     {
         return $this->limitInKiloBytes;
     }
@@ -50,13 +50,13 @@ class SystemInfo
     {
         //cribbed from https://wp-mix.com/php-get-server-information/
         $cmd = $this->getCoresCommand();
-        return ($cmd === null) ? 1 : intval(trim(shell_exec($cmd)));
+        return ($cmd === null) ? 1 : (int)trim(shell_exec($cmd));
     }
 
     /**
      * @return string|null
      */
-    public function getCoresCommand()
+    public function getCoresCommand(): ?string
     {
         $cmd = null;
         switch ($this->OS) {

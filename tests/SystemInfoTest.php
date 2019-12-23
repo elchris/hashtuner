@@ -8,10 +8,17 @@ use PHPUnit\Framework\TestCase;
 
 class SystemInfoTest extends TestCase
 {
+    public function testGetCores(): void
+    {
+        $info = new SystemInfo();
+        self::assertIsInt($info->getCores());
+        self::assertGreaterThanOrEqual(1, $info->getCores());
+    }
+
     /**
      * @throws MemoryLimitNotSetException
      */
-    public function testOsProcessorsCommand()
+    public function testOsProcessorsCommand(): void
     {
         $this->assertOsProcessorsCommand(
             SystemInfo::DARWIN,

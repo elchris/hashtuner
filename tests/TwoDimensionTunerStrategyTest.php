@@ -9,12 +9,11 @@ use PHPUnit\Framework\TestCase;
 
 class TwoDimensionTunerStrategyTest extends TestCase
 {
+    public const UPPER = 1.0;
+    public const LOWER = 0.5;
+    public const INITIAL_EXEC_TIME = 0.20;
 
-    const UPPER = 1.0;
-    const LOWER = 0.5;
-    const INITIAL_EXEC_TIME = 0.20;
-
-    public function testDesiredLimits()
+    public function testDesiredLimits(): void
     {
         $executionTimeOverLimit = self::UPPER + 0.5;
         $tuner = $this->getTuner($executionTimeOverLimit);
@@ -41,14 +40,14 @@ class TwoDimensionTunerStrategyTest extends TestCase
         self::assertTrue($tuner->hasReachedFirstDimensionBumpStopThreshold());
     }
 
-    public function testFirstDimensionTuningLogic()
+    public function testFirstDimensionTuningLogic(): void
     {
         $tuner = $this->getFirstDimensionTunedTuner();
         self::assertTrue($tuner->isAcceptable());
         self::assertTrue($tuner->hasReachedFirstDimensionBumpStopThreshold());
     }
 
-    public function testFirstDimensionTuningExceedsMemoryLimit()
+    public function testFirstDimensionTuningExceedsMemoryLimit(): void
     {
         $tuner = $this->getMemoryExceedingTuner();
         $tuner->tuneFirstDimension();
@@ -57,7 +56,7 @@ class TwoDimensionTunerStrategyTest extends TestCase
         self::assertFalse($tuner->hasReachedFirstDimensionBumpStopThreshold());
     }
 
-    public function testSecondDimensionTuningLogic()
+    public function testSecondDimensionTuningLogic(): void
     {
         $tuner = $this->getFirstDimensionTunedTuner();
         echo "\n*** RunTime State Start: " . $tuner->getRunTimeInfo();
@@ -69,7 +68,7 @@ class TwoDimensionTunerStrategyTest extends TestCase
         self::assertTrue($tuner->isAcceptable());
     }
 
-    public function testOverallTuning()
+    public function testOverallTuning(): void
     {
         $tuner = $this->getTuner(self::INITIAL_EXEC_TIME);
         $initialExecTime = $tuner->getActualExecutionTime();
@@ -82,7 +81,7 @@ class TwoDimensionTunerStrategyTest extends TestCase
         self::assertGreaterThan($initialExecTime, $finalExecTime);
     }
 
-    public function testOverallTuningWhileExceedingMemory()
+    public function testOverallTuningWhileExceedingMemory(): void
     {
         $tuner = $this->getMemoryExceedingTuner();
         $tuner->tune();
@@ -114,7 +113,7 @@ class TwoDimensionTunerStrategyTest extends TestCase
         return $tuner;
     }
 
-    private function getMemoryExceedingTuner()
+    private function getMemoryExceedingTuner(): TwoDimensionsTunerStrategy
     {
         return $this->getTunerWithInitialMemory(
             0.20,

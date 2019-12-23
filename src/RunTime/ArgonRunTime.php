@@ -7,7 +7,7 @@ use ChrisHolland\HashTuner\SystemInfo;
 
 class ArgonRunTime implements HashRunTime
 {
-    const MEMORY_INCREASE_PERCENTAGE = 0.10;
+    public const MEMORY_INCREASE_PERCENTAGE = 0.10;
     /**
      * @var float
      */
@@ -61,7 +61,7 @@ class ArgonRunTime implements HashRunTime
 
     public function getFirstDimension(): float
     {
-        return (float)$this->memory;
+        return $this->memory;
     }
 
     public function getExecutionTime(): float
@@ -78,7 +78,7 @@ class ArgonRunTime implements HashRunTime
 
         $targetMemory = $this->memory + (self::MEMORY_INCREASE_PERCENTAGE * $this->memory);
         if ($targetMemory > $limitInKiloBytes) {
-            throw new FirstDimensionLimitViolation();
+            throw new FirstDimensionLimitViolation('Hard Memory Limit Reached');
         }
         $this->memory = $targetMemory;
         $this->execute();
@@ -108,18 +108,17 @@ class ArgonRunTime implements HashRunTime
 
     private function getThreadsFromSystem() : int
     {
-        return $this->systemInfo->getCores() * 2;
+        //hard-coding to 1 because php doesn't support threads
+        //return $this->systemInfo->getCores() * 2;
+        return 1;
     }
-
-    /**
-     * @return int
-     */
+    
     public function getHardMemoryLimitInKilobytes(): int
     {
         if ($this->memoryLimitInKilobytesOverride === null) {
             return $this->systemInfo->getMemoryLimitInKiloBytes();
-        } else {
-            return $this->memoryLimitInKilobytesOverride;
         }
+
+        return $this->memoryLimitInKilobytesOverride;
     }
 }

@@ -7,9 +7,9 @@ use ChrisHolland\HashTuner\RunTime\HashRunTime;
 
 class FakeRunTime implements HashRunTime
 {
-    const LOAD_INCREASE = 0.10;
-    const LOAD_MULTIPLIER = 1.25;
-    const HARD_MEMORY_LIMIT = 4096000;
+    public const LOAD_INCREASE = 0.10;
+    public const LOAD_MULTIPLIER = 1.25;
+    public const HARD_MEMORY_LIMIT = 4096000;
     /**
      * @var float
      */
@@ -80,7 +80,7 @@ class FakeRunTime implements HashRunTime
 
     public function getThirdDimension() : int
     {
-        return 16;
+        return 1;
     }
 
     public function getHardMemoryLimitInKilobytes(): int

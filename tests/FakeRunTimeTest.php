@@ -7,14 +7,14 @@ use PHPUnit\Framework\TestCase;
 
 class FakeRunTimeTest extends TestCase
 {
-    const DEFAULT_ITERATIONS = 4;
-    const DEFAULT_MEMORY = 1024000;
-    const DEFAULT_EXEC_TIME = 0.5;
+    public const DEFAULT_ITERATIONS = 4;
+    public const DEFAULT_MEMORY = 1024000;
+    public const DEFAULT_EXEC_TIME = 0.5;
 
     /**
      * @throws FirstDimensionLimitViolation
      */
-    public function testFakeRunTime()
+    public function testFakeRunTime(): void
     {
         $initialIterations = self::DEFAULT_ITERATIONS;
         $initialMemory = self::DEFAULT_MEMORY;
@@ -24,8 +24,8 @@ class FakeRunTimeTest extends TestCase
         $runTime = $this->getFakeRunTime();
 
         self::assertSame((float)$initialMemory, $runTime->getFirstDimension());
-        self::assertSame((float)$initialExecTime, $runTime->getExecutionTime());
-        self::assertSame((int) $initialIterations, $runTime->getSecondDimension());
+        self::assertSame($initialExecTime, $runTime->getExecutionTime());
+        self::assertSame($initialIterations, $runTime->getSecondDimension());
 
         $runTime->bumpFirstDimension();
 
@@ -49,7 +49,7 @@ class FakeRunTimeTest extends TestCase
     /**
      * @throws FirstDimensionLimitViolation
      */
-    public function testMemoryHardLimitViolation()
+    public function testMemoryHardLimitViolation(): void
     {
         $runTime = $this->getFakeRunTime();
 

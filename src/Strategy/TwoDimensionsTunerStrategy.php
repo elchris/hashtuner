@@ -9,7 +9,7 @@ use ChrisHolland\HashTuner\RunTime\HashRunTime;
 
 class TwoDimensionsTunerStrategy implements TunerStrategy
 {
-    const FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT = 0.75;
+    public const FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT = 0.75;
 
     /**
      * @var float

@@ -37,7 +37,7 @@ class TuningResult
         int $threads,
         float $executionTime
     ) {
-        $this->memory = intval($memory);
+        $this->memory = (int)$memory;
         $this->iterations = $iterations;
         $this->threads = $threads;
         $this->executionTime = $executionTime;
@@ -47,9 +47,6 @@ class TuningResult
 
     public function toJson() : string
     {
-        return json_encode(
-            get_object_vars($this),
-            JSON_PRETTY_PRINT
-        );
+        return json_encode(get_object_vars($this), JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT, 512);
     }
 }

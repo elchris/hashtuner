@@ -7,14 +7,14 @@ use PHPUnit\Framework\TestCase;
 
 class TuningResultTest extends TestCase
 {
-    public function testJsonOutput()
+    public function testJsonOutput(): void
     {
         $result = new TuningResult(
             0.5,
             1.0,
             128000,
             4,
-            16,
+            1,
             0.90
         );
 
