@@ -1,7 +1,7 @@
 <?php
 require_once 'vendor/autoload.php';
 
-use ChrisHolland\HashTuner\ArgonTuner;
+use ChrisHolland\HashTuner\Tuners\ArgonTuner;
 
 if (! isset($argv[1])) {
     echo "Settings for Argon2id\n";

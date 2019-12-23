@@ -1,6 +1,6 @@
 <?php
 
-namespace ChrisHolland\HashTuner;
+namespace ChrisHolland\HashTuner\Tuners;
 
 use ChrisHolland\HashTuner\DTO\ExecutionBounds;
 use ChrisHolland\HashTuner\DTO\TuningResult;

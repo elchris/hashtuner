@@ -5,7 +5,7 @@ namespace ChrisHolland\HashTuner\Test;
 use ChrisHolland\HashTuner\DTO\ExecutionBounds;
 use ChrisHolland\HashTuner\DTO\TuningResult;
 use ChrisHolland\HashTuner\SystemInfo;
-use ChrisHolland\HashTuner\Tuner;
+use ChrisHolland\HashTuner\Tuners\Tuner;
 use PHPUnit\Framework\TestCase;
 
 abstract class BaseTunerTest extends TestCase

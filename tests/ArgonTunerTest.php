@@ -2,10 +2,10 @@
 
 namespace ChrisHolland\HashTuner\Test;
 
-use ChrisHolland\HashTuner\ArgonTuner;
 use ChrisHolland\HashTuner\RunTime\ArgonRunTime;
 use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
-use ChrisHolland\HashTuner\Tuner;
+use ChrisHolland\HashTuner\Tuners\ArgonTuner;
+use ChrisHolland\HashTuner\Tuners\Tuner;
 
 class ArgonTunerTest extends BaseTunerTest
 {

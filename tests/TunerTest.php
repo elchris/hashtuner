@@ -3,7 +3,7 @@
 namespace ChrisHolland\HashTuner\Test;
 
 use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
-use ChrisHolland\HashTuner\Tuner;
+use ChrisHolland\HashTuner\Tuners\Tuner;
 
 class TunerTest extends BaseTunerTest
 {
