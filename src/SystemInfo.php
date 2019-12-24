@@ -35,7 +35,10 @@ class SystemInfo
         $limitInBytes = $limitProvider->getLimitInBytes();
         $this->limitInKiloBytes = (int)($limitInBytes / 1024);
         if ($OsOverride === null) {
-            $this->OS = strtolower(trim(shell_exec('uname')));
+            $this->OS = strtolower(trim(
+                php_uname('s')
+                //shell_exec('uname')
+            ));
         } else {
             $this->OS = $OsOverride;
         }
