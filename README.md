@@ -3,7 +3,12 @@ Framework to automatically suggest settings for password hashing functions, star
 This library was inspired by [Bryan Burman's article](https://www.twelve21.io/how-to-choose-the-right-parameters-for-argon2/).
 
 # What it does
-It strives to dominate the cost of password hashing with memory, up to a specified "`hard memory limit`", based on a range of desired execution times in seconds.
+Various algorithms give us different "levers" to control the cost of computing a hash.
+
+## Argon2id
+With a minimum of `3 iterations`, it strives to dominate the cost of password hashing with memory, up to a specified `hard memory limit`, to achieve an execution time within a given range.
+
+Once it achieves 75% of the upper execution time limit, or the `hard memory limit` has been reached, it stops augmenting the memory then tries to get even closer to the upper execution time limit by augmenting iterations.
 
 # Hard Memory Limit
 * Estimate a server's available memory for concurrent password-hashing processes, say `8GB`
