@@ -23,14 +23,20 @@ class FakeRunTime implements HashRunTime
      */
     private $iterations;
 
+    /**
+     * @var array
+     */
+    private $info;
+
     public function __construct(
         int $initialIterations,
         int $initialMemory,
         float $initialExecTime
     ) {
-        $this->iterations = (int)$initialIterations;
+        $this->iterations = $initialIterations;
         $this->memory = (float)$initialMemory;
-        $this->execTime = (float)$initialExecTime;
+        $this->execTime = $initialExecTime;
+        $this->execute();
     }
 
     public function getFirstDimension() : float
@@ -50,10 +56,12 @@ class FakeRunTime implements HashRunTime
     {
         $targetMemorySetting = $this->memory + (self::LOAD_INCREASE * $this->memory);
         if ($targetMemorySetting > $this->getHardMemoryLimitInKilobytes()) {
-            throw new FirstDimensionLimitViolation();
+            throw new FirstDimensionLimitViolation('Mem Limit violation');
         }
         $this->memory = $targetMemorySetting;
-        $this->execTime = $this->execTime + (self::LOAD_INCREASE * $this->execTime);
+
+        $this->execute();
+        $this->execTime += (self::LOAD_INCREASE * $this->execTime);
     }
 
     public function getSecondDimension() : int
@@ -86,5 +94,22 @@ class FakeRunTime implements HashRunTime
     public function getHardMemoryLimitInKilobytes(): int
     {
         return self::HARD_MEMORY_LIMIT;
+    }
+
+    public function getInfo(): array
+    {
+        return $this->info;
+    }
+
+    private function execute() : void
+    {
+        $this->info = [
+            'algoName' => 'argon2id',
+            'options' => [
+                'memory_cost' => (int)$this->getFirstDimension(),
+                'time_cost' => $this->getSecondDimension(),
+                'threads' => $this->getThirdDimension()
+            ]
+        ];
     }
 }

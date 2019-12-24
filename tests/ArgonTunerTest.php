@@ -2,6 +2,7 @@
 
 namespace ChrisHolland\HashTuner\Test;
 
+use ChrisHolland\HashTuner\Exception\UnsupportedPasswordHashingAlgo;
 use ChrisHolland\HashTuner\RunTime\ArgonRunTime;
 use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
 use ChrisHolland\HashTuner\Tuners\ArgonTuner;
@@ -9,6 +10,12 @@ use ChrisHolland\HashTuner\Tuners\Tuner;
 
 class ArgonTunerTest extends BaseTunerTest
 {
+    public function testArgonAlgoNotSupported(): void
+    {
+        $this->expectException(UnsupportedPasswordHashingAlgo::class);
+        new ArgonTuner(true);
+    }
+
     public function testTunerWithArgonRunTime(): void
     {
         $tuner = new Tuner(
@@ -23,20 +30,20 @@ class ArgonTunerTest extends BaseTunerTest
 
     public function testArgonTunerResultsWithDefaults(): void
     {
-        $result = ArgonTuner::getTunedArgonSettings();
+        $result = (new ArgonTuner())->getTunedSettings();
         $this->assertResultCorrectness($result);
     }
 
     public function testArgonTunerWithDefaults(): void
     {
-        $tuner = ArgonTuner::getArgonTuner();
+        $tuner = (new ArgonTuner())->getTuner();
         $tuner->tune();
         $this->assertResultCorrectness($tuner->getTuningResult(), false);
     }
 
     public function testArgonTunerWithCustomSpeedAndMemoryLimit(): void
     {
-        $results = ArgonTuner::getTunedArgonSettingsForSpeedAndMemoryLimit(
+        $results = (new ArgonTuner())->getTunedSettingsForSpeedAndMemoryLimit(
             0.5,
             1.0,
             256000
@@ -46,7 +53,7 @@ class ArgonTunerTest extends BaseTunerTest
 
     public function testArgonTunerWithCustomMemoryLimit(): void
     {
-        $results = ArgonTuner::getTunedArgonSettingsForMemoryLimit(
+        $results = (new ArgonTuner())->getTunedSettingsForMemoryLimit(
             256000
         );
         $this->assertResultCorrectness($results);

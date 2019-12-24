@@ -11,6 +11,7 @@ class TuningResultTest extends TestCase
     {
         $result = $this->getTuningResult();
 
+        self::assertIsArray($result->info);
         self::assertSame(256000, $result->hardMemoryLimit);
         self::assertSame(0.5, $result->desiredExecutionLow);
         self::assertSame(1.0, $result->desiredExecutionHigh);
@@ -28,6 +29,7 @@ class TuningResultTest extends TestCase
         $result = $this->getTuningResult();
         $array = $result->toArray();
         self::assertArrayHasKey('hardMemoryLimit', $array);
+        self::assertArrayHasKey('info', $array);
         self::assertIsArray($array);
     }
 
@@ -37,6 +39,7 @@ class TuningResultTest extends TestCase
     private function getTuningResult(): TuningResult
     {
         return new TuningResult(
+            ['algoName' => 'argon2id'],
             256000,
             0.5,
             1.0,

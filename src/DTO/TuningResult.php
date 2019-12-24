@@ -33,7 +33,13 @@ class TuningResult
      */
     public $executionTime;
 
+    /**
+     * @var array
+     */
+    public $info;
+
     public function __construct(
+        array $info,
         int $hardMemoryLimit,
         float $desiredExecutionLow,
         float $desiredExecutionHigh,
@@ -42,6 +48,7 @@ class TuningResult
         int $threads,
         float $executionTime
     ) {
+        $this->info = $info;
         $this->settingMemory = (int)$memory;
         $this->settingIterations = $iterations;
         $this->settingThreads = $threads;

@@ -6,6 +6,8 @@ use ChrisHolland\HashTuner\Exception\FirstDimensionLimitViolation;
 
 interface HashRunTime
 {
+    public function getInfo(): array;
+
     public function getFirstDimension(): float;
 
     public function getExecutionTime(): float;

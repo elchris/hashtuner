@@ -40,9 +40,17 @@ class Tuner
 
     public static function getDefaultExecutionBounds(): ExecutionBounds
     {
-        return new ExecutionBounds(
+        return self::getExecutionBounds(
             self::DEFAULT_EXECUTION_LOW,
             self::DEFAULT_EXECUTION_HIGH
+        );
+    }
+
+    public static function getExecutionBounds(float $low, float $high): ExecutionBounds
+    {
+        return new ExecutionBounds(
+            $low,
+            $high
         );
     }
 }

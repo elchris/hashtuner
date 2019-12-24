@@ -32,6 +32,10 @@ class ArgonRunTime implements HashRunTime
      * @var int|null
      */
     private $memoryLimitInKilobytesOverride;
+    /**
+     * @var array
+     */
+    private $info;
 
     public function __construct(
         int $initialMemory,
@@ -49,15 +53,16 @@ class ArgonRunTime implements HashRunTime
     private function execute() : void
     {
         $start = microtime(true);
-        password_hash(
+        $hash = password_hash(
             'i am not secure',
             PASSWORD_ARGON2ID,
             [
-                'settingThreads' => $this->threads,
+                'threads' => $this->threads,
                 'memory_cost' => (int)$this->memory,
                 'time_cost' => $this->iterations
             ]
         );
+        $this->info = password_get_info($hash);
         $end = microtime(true);
         $this->execTime = ($end - $start);
     }
@@ -123,5 +128,10 @@ class ArgonRunTime implements HashRunTime
         }
 
         return $this->memoryLimitInKilobytesOverride;
+    }
+
+    public function getInfo(): array
+    {
+        return $this->info;
     }
 }

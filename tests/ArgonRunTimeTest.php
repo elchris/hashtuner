@@ -5,11 +5,20 @@ namespace ChrisHolland\HashTuner\Test;
 use BrandEmbassy\Memory\MemoryLimitNotSetException;
 use ChrisHolland\HashTuner\Exception\FirstDimensionLimitViolation;
 use ChrisHolland\HashTuner\RunTime\ArgonRunTime;
+use ChrisHolland\HashTuner\RunTime\HashRunTime;
 use ChrisHolland\HashTuner\SystemInfo;
 use PHPUnit\Framework\TestCase;
 
 class ArgonRunTimeTest extends TestCase
 {
+    public function testGetRunTimeInfo(): void
+    {
+        $runTime = $this->getArgonRunTime();
+        $info = $runTime->getInfo();
+        self::assertIsArray($info);
+        self::assertArrayHasKey('algoName', $info);
+    }
+
     /**
      * @throws MemoryLimitNotSetException
      * @throws FirstDimensionLimitViolation
@@ -40,12 +49,17 @@ class ArgonRunTimeTest extends TestCase
 
     public function testMemoryLimitOverride(): void
     {
-        $runTime = new ArgonRunTime(
+        $runTime = $this->getArgonRunTime();
+
+        self::assertSame(256000, $runTime->getHardMemoryLimitInKilobytes());
+    }
+
+    private function getArgonRunTime(): HashRunTime
+    {
+        return new ArgonRunTime(
             128000,
             3,
             256000
         );
-
-        self::assertSame(256000, $runTime->getHardMemoryLimitInKilobytes());
     }
 }

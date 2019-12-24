@@ -4,7 +4,9 @@ namespace ChrisHolland\HashTuner\Tuners;
 
 use ChrisHolland\HashTuner\DTO\ExecutionBounds;
 use ChrisHolland\HashTuner\DTO\TuningResult;
+use ChrisHolland\HashTuner\Exception\UnsupportedPasswordHashingAlgo;
 use ChrisHolland\HashTuner\RunTime\ArgonRunTime;
+use ChrisHolland\HashTuner\RunTime\HashRunTime;
 use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
 
 class ArgonTuner
@@ -12,85 +14,113 @@ class ArgonTuner
     public const DEFAULT_INITIAL_MEMORY = 32 * 1024;
     public const DEFAULT_INITIAL_ITERATIONS = 3;
 
-    public static function getTunedArgonSettings(): TuningResult
+    /**
+     * ArgonTuner constructor.
+     * @param bool $makeAlgoNotExist
+     * @throws UnsupportedPasswordHashingAlgo
+     */
+    public function __construct($makeAlgoNotExist = false)
     {
-        return self::getTunedArgonSettingsForSpeed(
+        $algoExists = defined('PASSWORD_ARGON2ID');
+        if ($makeAlgoNotExist) {
+            $algoExists = false;
+        }
+        if (! $algoExists) {
+            throw new UnsupportedPasswordHashingAlgo(
+                'Argon2id is not supported on your system'
+            );
+        }
+    }
+
+    public function getTunedSettings(): TuningResult
+    {
+        return $this->getTunedSettingsForSpeed(
             Tuner::DEFAULT_EXECUTION_LOW,
             Tuner::DEFAULT_EXECUTION_HIGH
         );
     }
 
-    public static function getTunedArgonSettingsForSpeed(
+    public function getTunedSettingsForSpeed(
         float $low,
         float $high
     ): TuningResult {
-        $tuner = self::getArgonTunerForSpeed($low, $high);
-        $tuner->tune();
-
-        return $tuner->getTuningResult();
+        return $this->getSettingsForTuner(
+            Tuner::getExecutionBounds($low, $high),
+            $this->getDefaultArgonRunTime()
+        );
     }
 
-    public static function getTunedArgonSettingsForMemoryLimit(
+    public function getTunedSettingsForMemoryLimit(
         int $hardMemoryLimit
     ): TuningResult {
-        $tuner = new Tuner(
-            new TwoDimensionsTunerStrategy(
-                Tuner::getDefaultExecutionBounds(),
-                self::getArgonRunTimeWithMemoryLimit($hardMemoryLimit)
-            )
+        return $this->getSettingsForTuner(
+            Tuner::getDefaultExecutionBounds(),
+            $this->getRunTimeWithMemoryLimit($hardMemoryLimit)
         );
-        $tuner->tune();
-        return $tuner->getTuningResult();
     }
 
-    public static function getTunedArgonSettingsForSpeedAndMemoryLimit(
+    public function getTunedSettingsForSpeedAndMemoryLimit(
         float $low,
         float $high,
         int $hardMemoryLimit
     ): TuningResult {
-        $tuner = new Tuner(
-            new TwoDimensionsTunerStrategy(
-                new ExecutionBounds(
-                    $low,
-                    $high
-                ),
-                self::getArgonRunTimeWithMemoryLimit($hardMemoryLimit)
-            )
-        );
-        $tuner->tune();
-        return $tuner->getTuningResult();
-    }
-
-    public static function getArgonTunerForSpeed(float $low, float $high): Tuner
-    {
-        return new Tuner(
-            new TwoDimensionsTunerStrategy(
-                new ExecutionBounds(
-                    $low,
-                    $high
-                ),
-                new ArgonRunTime(
-                    self::DEFAULT_INITIAL_MEMORY,
-                    self::DEFAULT_INITIAL_ITERATIONS
-                )
-            )
+        return $this->getSettingsForTuner(
+            Tuner::getExecutionBounds($low, $high),
+            $this->getRunTimeWithMemoryLimit($hardMemoryLimit)
         );
     }
 
-    public static function getArgonTuner() : Tuner
+    public function getTunerForSpeed(float $low, float $high): Tuner
     {
-        return self::getArgonTunerForSpeed(
+        return $this->getTunerForBoundsAndRunTime(
+            Tuner::getExecutionBounds($low, $high),
+            $this->getDefaultArgonRunTime()
+        );
+    }
+
+    public function getTuner() : Tuner
+    {
+        return $this->getTunerForSpeed(
             Tuner::DEFAULT_EXECUTION_LOW,
             Tuner::DEFAULT_EXECUTION_HIGH
         );
     }
 
-    private static function getArgonRunTimeWithMemoryLimit(int $hardMemoryLimit): ArgonRunTime
+    private function getDefaultArgonRunTime(): ArgonRunTime
+    {
+        return new ArgonRunTime(
+            self::DEFAULT_INITIAL_MEMORY,
+            self::DEFAULT_INITIAL_ITERATIONS
+        );
+    }
+
+    private function getRunTimeWithMemoryLimit(int $hardMemoryLimit): ArgonRunTime
     {
         return new ArgonRunTime(
             self::DEFAULT_INITIAL_MEMORY,
             self::DEFAULT_INITIAL_ITERATIONS,
             $hardMemoryLimit
         );
+    }
+
+    private function getTunerForBoundsAndRunTime(
+        ExecutionBounds $bounds,
+        HashRunTime $runTime
+    ): Tuner {
+        return new Tuner(
+            new TwoDimensionsTunerStrategy(
+                $bounds,
+                $runTime
+            )
+        );
+    }
+
+    private function getSettingsForTuner(
+        ExecutionBounds $bounds,
+        HashRunTime $runTime
+    ): TuningResult {
+        $tuner = $this->getTunerForBoundsAndRunTime($bounds, $runTime);
+        $tuner->tune();
+        return $tuner->getTuningResult();
     }
 }
