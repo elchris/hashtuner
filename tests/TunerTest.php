@@ -25,9 +25,9 @@ class TunerTest extends BaseTunerTest
 
         $this->assertResultCorrectness($result, false);
 
-        self::assertSame(3888638, $result->memory);
-        self::assertSame(5, $result->iterations);
-        self::assertSame($this->threads, $result->threads);
+        self::assertSame(3888638, $result->settingMemory);
+        self::assertSame(5, $result->settingIterations);
+        self::assertSame($this->threads, $result->settingThreads);
         self::assertSame(0.9493745839581, $result->executionTime);
     }
 }

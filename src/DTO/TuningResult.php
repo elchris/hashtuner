@@ -7,19 +7,7 @@ class TuningResult
     /**
      * @var int
      */
-    public $memory;
-    /**
-     * @var int
-     */
-    public $iterations;
-    /**
-     * @var int
-     */
-    public $threads;
-    /**
-     * @var float
-     */
-    public $executionTime;
+    public $hardMemoryLimit;
     /**
      * @var float
      */
@@ -28,8 +16,25 @@ class TuningResult
      * @var float
      */
     public $desiredExecutionHigh;
+    /**
+     * @var int
+     */
+    public $settingMemory;
+    /**
+     * @var int
+     */
+    public $settingIterations;
+    /**
+     * @var int
+     */
+    public $settingThreads;
+    /**
+     * @var float
+     */
+    public $executionTime;
 
     public function __construct(
+        int $hardMemoryLimit,
         float $desiredExecutionLow,
         float $desiredExecutionHigh,
         float $memory,
@@ -37,16 +42,26 @@ class TuningResult
         int $threads,
         float $executionTime
     ) {
-        $this->memory = (int)$memory;
-        $this->iterations = $iterations;
-        $this->threads = $threads;
+        $this->settingMemory = (int)$memory;
+        $this->settingIterations = $iterations;
+        $this->settingThreads = $threads;
         $this->executionTime = $executionTime;
         $this->desiredExecutionLow = $desiredExecutionLow;
         $this->desiredExecutionHigh = $desiredExecutionHigh;
+        $this->hardMemoryLimit = $hardMemoryLimit;
     }
 
     public function toJson() : string
     {
-        return json_encode(get_object_vars($this), JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT, 512);
+        return json_encode(
+            $this->toArray(),
+            JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT,
+            512
+        );
+    }
+
+    public function toArray(): array
+    {
+        return get_object_vars($this);
     }
 }

@@ -38,11 +38,11 @@ abstract class BaseTunerTest extends TestCase
     protected function assertResultCorrectness(TuningResult $result, bool $useTunerDefaults = false): void
     {
         self::assertInstanceOf(TuningResult::class, $result);
-        self::assertIsInt($result->memory);
-        self::assertIsInt($result->iterations);
-        self::assertIsInt($result->threads);
+        self::assertIsInt($result->settingMemory);
+        self::assertIsInt($result->settingIterations);
+        self::assertIsInt($result->settingThreads);
         self::assertIsFloat($result->executionTime);
-        self::assertSame($this->threads, $result->threads);
+        self::assertSame($this->threads, $result->settingThreads);
         if (!$useTunerDefaults) {
             self::assertSame(
                 self::DEFAULT_EXECUTION_LOW,

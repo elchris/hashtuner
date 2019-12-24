@@ -9,7 +9,35 @@ class TuningResultTest extends TestCase
 {
     public function testJsonOutput(): void
     {
-        $result = new TuningResult(
+        $result = $this->getTuningResult();
+
+        self::assertSame(256000, $result->hardMemoryLimit);
+        self::assertSame(0.5, $result->desiredExecutionLow);
+        self::assertSame(1.0, $result->desiredExecutionHigh);
+        self::assertSame(128000, $result->settingMemory);
+        self::assertSame(4, $result->settingIterations);
+        self::assertSame(1, $result->settingThreads);
+        self::assertSame(.90, $result->executionTime);
+        $json = $result->toJson();
+        self::assertIsString($json);
+        print $json;
+    }
+
+    public function testArrayOutput() : void
+    {
+        $result = $this->getTuningResult();
+        $array = $result->toArray();
+        self::assertArrayHasKey('hardMemoryLimit', $array);
+        self::assertIsArray($array);
+    }
+
+    /**
+     * @return TuningResult
+     */
+    private function getTuningResult(): TuningResult
+    {
+        return new TuningResult(
+            256000,
             0.5,
             1.0,
             128000,
@@ -17,9 +45,5 @@ class TuningResultTest extends TestCase
             1,
             0.90
         );
-
-        $json = $result->toJson();
-        self::assertIsString($json);
-        print $json;
     }
 }

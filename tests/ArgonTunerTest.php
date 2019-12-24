@@ -18,7 +18,7 @@ class ArgonTunerTest extends BaseTunerTest
         $tuner->tune();
         $result = $tuner->getTuningResult();
         $this->assertResultCorrectness($result, false);
-        self::assertSame($this->threads, $result->threads);
+        self::assertSame($this->threads, $result->settingThreads);
     }
 
     public function testArgonTunerResultsWithDefaults(): void

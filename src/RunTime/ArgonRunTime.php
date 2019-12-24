@@ -24,6 +24,9 @@ class ArgonRunTime implements HashRunTime
      * @var float
      */
     private $execTime;
+    /**
+     * @var SystemInfo
+     */
     private $systemInfo;
     /**
      * @var int|null
@@ -50,8 +53,8 @@ class ArgonRunTime implements HashRunTime
             'i am not secure',
             PASSWORD_ARGON2ID,
             [
-                'threads' => $this->threads,
-                'memory_cost' => $this->memory,
+                'settingThreads' => $this->threads,
+                'memory_cost' => (int)$this->memory,
                 'time_cost' => $this->iterations
             ]
         );
@@ -108,7 +111,7 @@ class ArgonRunTime implements HashRunTime
 
     private function getThreadsFromSystem() : int
     {
-        //hard-coding to 1 because php doesn't support threads
+        //hard-coding to 1 because php doesn't support settingThreads
         //return $this->systemInfo->getCores() * 2;
         return 1;
     }
