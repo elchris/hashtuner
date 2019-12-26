@@ -11,7 +11,8 @@ jobs:
       - run:
           name: Setup dependencies
           command: |
-            sudo composer self-update
+            yum -y install composer
+            composer self-update
             composer install -n --prefer-dist
       - run:
           name: Setup Code Climate test-reporter
