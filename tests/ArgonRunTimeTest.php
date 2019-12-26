@@ -20,18 +20,19 @@ class ArgonRunTimeTest extends TestCase
     }
 
     /**
-     * @throws MemoryLimitNotSetException
      * @throws FirstDimensionLimitViolation
+     * @throws MemoryLimitNotSetException
      */
     public function testMemoryHardLimitViolation(): void
     {
-        $limitInKiloBytes = (new SystemInfo())->getMemoryLimitInKiloBytes();
-
+        (new SystemInfo())->getMemoryLimitInKiloBytes();
+        $limitInKiloBytes = 32000;
         $attemptedLimit = $limitInKiloBytes * 1.1;
 
         $runTime = new ArgonRunTime(
             (int)($attemptedLimit / 1.2),
-            3
+            3,
+            $limitInKiloBytes
         );
 
         $this->expectException(FirstDimensionLimitViolation::class);
