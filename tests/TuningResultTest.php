@@ -2,6 +2,9 @@
 
 namespace ChrisHolland\HashTuner\Test;
 
+use ChrisHolland\HashTuner\DTO\ExecutionBounds;
+use ChrisHolland\HashTuner\DTO\ExecutionInfo;
+use ChrisHolland\HashTuner\DTO\Settings;
 use ChrisHolland\HashTuner\DTO\TuningResult;
 use PHPUnit\Framework\TestCase;
 
@@ -38,15 +41,27 @@ class TuningResultTest extends TestCase
      */
     private function getTuningResult(): TuningResult
     {
-        return new TuningResult(
-            ['algoName' => 'argon2id'],
-            256000,
+        $range = new ExecutionBounds(
             0.5,
-            1.0,
+            1.0
+        );
+
+        $settings = new Settings(
             128000,
             4,
-            1,
+            1
+        );
+
+        $executionInfo = new ExecutionInfo(
+            ['algoName' => 'argon2id'],
             0.90
+        );
+
+        return new TuningResult(
+            256000,
+            $range,
+            $settings,
+            $executionInfo
         );
     }
 }

@@ -3,6 +3,8 @@
 namespace ChrisHolland\HashTuner\Strategy;
 
 use ChrisHolland\HashTuner\DTO\ExecutionBounds;
+use ChrisHolland\HashTuner\DTO\ExecutionInfo;
+use ChrisHolland\HashTuner\DTO\Settings;
 use ChrisHolland\HashTuner\DTO\TuningResult;
 use ChrisHolland\HashTuner\Exception\FirstDimensionLimitViolation;
 use ChrisHolland\HashTuner\RunTime\HashRunTime;
@@ -91,14 +93,7 @@ class TwoDimensionsTunerStrategy implements TunerStrategy
 
     public function tuneFirstDimension() : void
     {
-        while ($this->hasNotPassedLowerThreshold()
-            ||
-            (
-                $this->isAcceptable()
-                &&
-                ! $this->hasReachedFirstDimensionBumpStopThreshold()
-            )
-        ) {
+        while ($this->mustIncreaseFirstDimension()) {
             try {
                 $this->bumpFirstDimension();
             } catch (FirstDimensionLimitViolation $e) {
@@ -114,10 +109,7 @@ class TwoDimensionsTunerStrategy implements TunerStrategy
 
     public function tuneSecondDimensionBeyondAcceptability() : void
     {
-        while ($this->hasNotPassedLowerThreshold()
-            ||
-            $this->isAcceptable()
-        ) {
+        while ($this->mustIncreaseSecondDimension()) {
             $this->bumpSecondDimension();
         }
     }
@@ -157,15 +149,48 @@ class TwoDimensionsTunerStrategy implements TunerStrategy
 
     public function getTuningResult() : TuningResult
     {
-        return new TuningResult(
-            $this->runTime->getInfo(),
-            $this->runTime->getHardMemoryLimitInKilobytes(),
+        $range = new ExecutionBounds(
             $this->desiredExecutionTimeLowerLimit,
-            $this->desiredExecutionTimeUpperLimit,
+            $this->desiredExecutionTimeUpperLimit
+        );
+
+        $settings = new Settings(
             $this->runTime->getFirstDimension(),
             $this->runTime->getSecondDimension(),
-            $this->runTime->getThirdDimension(),
+            $this->runTime->getThirdDimension()
+        );
+
+        $info = new ExecutionInfo(
+            $this->runTime->getInfo(),
             $this->runTime->getExecutionTime()
         );
+
+        return new TuningResult(
+            $this->runTime->getHardMemoryLimitInKilobytes(),
+            $range,
+            $settings,
+            $info
+        );
+    }
+
+    private function hasNotYetReachedFirstDimensionLimit(): bool
+    {
+        return $this->isAcceptable()
+            &&
+            !$this->hasReachedFirstDimensionBumpStopThreshold();
+    }
+
+    private function mustIncreaseFirstDimension(): bool
+    {
+        return $this->hasNotPassedLowerThreshold()
+            ||
+            $this->hasNotYetReachedFirstDimensionLimit();
+    }
+
+    private function mustIncreaseSecondDimension(): bool
+    {
+        return $this->hasNotPassedLowerThreshold()
+            ||
+            $this->isAcceptable();
     }
 }

@@ -39,22 +39,18 @@ class TuningResult
     public $info;
 
     public function __construct(
-        array $info,
         int $hardMemoryLimit,
-        float $desiredExecutionLow,
-        float $desiredExecutionHigh,
-        float $memory,
-        int $iterations,
-        int $threads,
-        float $executionTime
+        ExecutionBounds $range,
+        Settings $settings,
+        ExecutionInfo $executionInfo
     ) {
-        $this->info = $info;
-        $this->settingMemory = (int)$memory;
-        $this->settingIterations = $iterations;
-        $this->settingThreads = $threads;
-        $this->executionTime = $executionTime;
-        $this->desiredExecutionLow = $desiredExecutionLow;
-        $this->desiredExecutionHigh = $desiredExecutionHigh;
+        $this->info = $executionInfo->hashInfo;
+        $this->settingMemory = (int)$settings->memory;
+        $this->settingIterations = $settings->iterations;
+        $this->settingThreads = $settings->threads;
+        $this->executionTime = $executionInfo->executionTime;
+        $this->desiredExecutionLow = $range->lower;
+        $this->desiredExecutionHigh = $range->upper;
         $this->hardMemoryLimit = $hardMemoryLimit;
     }
 
