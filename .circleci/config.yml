@@ -11,7 +11,6 @@ jobs:
       - run:
           name: Setup dependencies
           command: |
-            yum -y install composer
             composer self-update
             composer install -n --prefer-dist
       - run:
