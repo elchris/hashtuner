@@ -72,3 +72,18 @@ composer require chrisholland/hashtuner
 128000
 )->toJson()
 ```
+
+# More Reading
+## Symfony
+
+* [Native Password Hasher in Symfony 4.3](https://symfony.com/blog/new-in-symfony-4-3-native-password-encoder)
+* [Adding Password Rehashing Capibilities in Symfony](https://github.com/symfony/symfony/pull/31153)
+
+## Other Links
+
+* [Paragonie's Argon2 Refiner](https://github.com/paragonie/argon2-refiner)
+* [Modern Hashing Algorithms](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html#modern-algorithms)
+
+
+
+
