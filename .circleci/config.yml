@@ -4,7 +4,7 @@ jobs:
     environment:
       CC_TEST_REPORTER_ID: d66f6a48863052d6c3066ca38032c786f882ba1620d7e93e43d7861c4851e8e0
     docker:
-      - image: ubuntu-1604:201903-01
+      - image: phpdockerio/php73-fpm
     working_directory: ~/repo
     steps:
       - checkout:
