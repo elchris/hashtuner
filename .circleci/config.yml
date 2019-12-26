@@ -4,7 +4,7 @@ jobs:
     environment:
       CC_TEST_REPORTER_ID: d66f6a48863052d6c3066ca38032c786f882ba1620d7e93e43d7861c4851e8e0
     docker:
-      - image: phpdockerio/php73-fpm
+      - image: phpdockerio/php73-cli
     working_directory: ~/repo
     steps:
       - checkout:
@@ -21,7 +21,6 @@ jobs:
       - run:
           name: Run tests
           command: |
-                     php -v
                      ./cc-test-reporter before-build
                      vendor/bin/phpunit --coverage-clover clover.xml
                      ./cc-test-reporter after-build --coverage-input-type clover --exit-code $?
