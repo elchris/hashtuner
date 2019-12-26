@@ -2,6 +2,8 @@
 Framework to automatically suggest settings for password hashing functions, starting with Argon2id.
 This library was inspired by [Bryan Burman's article](https://www.twelve21.io/how-to-choose-the-right-parameters-for-argon2/).
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/7dab2d6867ce7b0c6a6e/maintainability)](https://codeclimate.com/github/elchris/hashtuner/maintainability)
+
 # What it does
 Various algorithms give us different "levers" to control the cost of computing a hash.
 
