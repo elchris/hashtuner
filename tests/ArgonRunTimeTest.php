@@ -40,12 +40,8 @@ class ArgonRunTimeTest extends TestCase
         while ($runTime->getFirstDimension() < $attemptedLimit) {
             $runTime->bumpFirstDimension();
         }
-        echo
-            '***** ArgonRunTimeTest::testMemoryHardLimitViolation Memory: '
-            .$runTime->getFirstDimension();
-        echo
-            '***** ArgonRunTimeTest::testMemoryHardLimitViolation Execution: '
-            .$runTime->getExecutionTime();
+
+        self::assertGreaterThanOrEqual($attemptedLimit, $runTime->getFirstDimension());
     }
 
     public function testMemoryLimitOverride(): void

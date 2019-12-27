@@ -5,9 +5,8 @@ namespace ChrisHolland\HashTuner\Test;
 use ChrisHolland\HashTuner\DTO\ExecutionBounds;
 use ChrisHolland\HashTuner\Strategy\TunerStrategy;
 use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
-use PHPUnit\Framework\TestCase;
 
-class TwoDimensionTunerStrategyTest extends TestCase
+class TwoDimensionTunerStrategyTest extends BaseTunerTest
 {
     public const UPPER = 1.0;
     public const LOWER = 0.5;
@@ -51,7 +50,6 @@ class TwoDimensionTunerStrategyTest extends TestCase
     {
         $tuner = $this->getMemoryExceedingTuner();
         $tuner->tuneFirstDimension();
-        echo "\n ********* Mem Exceeding Status:".$tuner->getRunTimeInfo();
         self::assertFalse($tuner->isAcceptable());
         self::assertFalse($tuner->hasReachedFirstDimensionBumpStopThreshold());
     }
@@ -59,12 +57,9 @@ class TwoDimensionTunerStrategyTest extends TestCase
     public function testSecondDimensionTuningLogic(): void
     {
         $tuner = $this->getFirstDimensionTunedTuner();
-        echo "\n*** RunTime State Start: " . $tuner->getRunTimeInfo();
         $tuner->tuneSecondDimensionBeyondAcceptability();
         self::assertFalse($tuner->isAcceptable());
-        echo "\n*** RunTime State Middle: " . $tuner->getRunTimeInfo();
         $tuner->tuneSecondDimensionBackWithinAcceptability();
-        echo "\n*** RunTime State End: " . $tuner->getRunTimeInfo();
         self::assertTrue($tuner->isAcceptable());
     }
 
@@ -72,11 +67,9 @@ class TwoDimensionTunerStrategyTest extends TestCase
     {
         $tuner = $this->getTuner(self::INITIAL_EXEC_TIME);
         $initialExecTime = $tuner->getActualExecutionTime();
-        echo "\n*** Global Tune Start: " . $tuner->getRunTimeInfo();
         self::assertFalse($tuner->isAcceptable());
         $tuner->tune();
         self::assertTrue($tuner->isAcceptable());
-        echo "\n*** Global Tune End: " . $tuner->getRunTimeInfo();
         $finalExecTime = $tuner->getActualExecutionTime();
         self::assertGreaterThan($initialExecTime, $finalExecTime);
     }
@@ -87,8 +80,7 @@ class TwoDimensionTunerStrategyTest extends TestCase
         $tuner->tune();
         $result = $tuner->getTuningResult();
         self::assertTrue($tuner->isAcceptable());
-        echo "\n***** Memory Exceeding Fake Tuner Result:";
-        var_dump($result);
+        $this->assertResultCorrectness($result);
     }
 
     private function getTuner(float $actualExecutionTime): TunerStrategy
@@ -106,10 +98,7 @@ class TwoDimensionTunerStrategyTest extends TestCase
     private function getFirstDimensionTunedTuner(): TunerStrategy
     {
         $tuner = $this->getTuner(self::INITIAL_EXEC_TIME);
-        echo "\n*** RunTime State Start: " . $tuner->getRunTimeInfo();
         $tuner->tuneFirstDimension();
-        echo "\n*** RunTime State End: " . $tuner->getRunTimeInfo();
-
         return $tuner;
     }
 

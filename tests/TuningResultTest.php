@@ -24,7 +24,6 @@ class TuningResultTest extends TestCase
         self::assertSame(.90, $result->executionTime);
         $json = $result->toJson();
         self::assertIsString($json);
-        print $json;
     }
 
     public function testArrayOutput() : void
