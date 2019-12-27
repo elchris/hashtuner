@@ -16,6 +16,8 @@ With a minimum of `3 iterations`, it strives to dominate the cost of password ha
 
 Once it achieves 75% of the upper execution time limit, or the `hard memory limit` has been reached, it stops augmenting the memory then tries to get even closer to the upper execution time limit by augmenting iterations.
 
+For the time-being, "`threads`" are locked-down to `1`, because the libsodium integration with password_hash won't accept a value other than `1`. <Insert link to article explaining this behavior here>
+
 # Hard Memory Limit
 * Estimate a server's available memory for concurrent password-hashing processes, say `8GB`
 * Estimate a worst-case scenario for concurrent users logging-in at a given time, say `50`.
