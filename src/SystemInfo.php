@@ -25,10 +25,10 @@ class SystemInfo
 
     /**
      * SystemInfo constructor.
-     * @param null $OsOverride
+     * @param string|null $OsOverride
      * @throws MemoryLimitNotSetException
      */
-    public function __construct($OsOverride = null)
+    public function __construct(?string $OsOverride = null)
     {
         $configuration = new MemoryConfiguration();
         $limitProvider = new MemoryLimitProvider($configuration);

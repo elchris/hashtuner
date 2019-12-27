@@ -24,7 +24,7 @@ class FakeRunTime implements HashRunTime
     private $iterations;
 
     /**
-     * @var array
+     * @var array<mixed>
      */
     private $info;
 
@@ -79,11 +79,6 @@ class FakeRunTime implements HashRunTime
     {
         $this->iterations--;
         $this->execTime /= self::LOAD_MULTIPLIER;
-    }
-
-    public function info() : string
-    {
-        return $this->getFirstDimension().':'.$this->getExecutionTime().':'.$this->getSecondDimension();
     }
 
     public function getThirdDimension() : int

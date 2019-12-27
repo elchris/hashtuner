@@ -34,7 +34,7 @@ class TuningResult
     public $executionTime;
 
     /**
-     * @var array
+     * @var array<mixed>
      */
     public $info;
 
@@ -63,6 +63,9 @@ class TuningResult
         );
     }
 
+    /**
+     * @return array<string,mixed>
+     */
     public function toArray(): array
     {
         return get_object_vars($this);

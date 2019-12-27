@@ -150,7 +150,7 @@ class TwoDimensionsTunerStrategy implements TunerStrategy
         );
 
         $settings = new Settings(
-            $this->runTime->getFirstDimension(),
+            (int)$this->runTime->getFirstDimension(),
             $this->runTime->getSecondDimension(),
             $this->runTime->getThirdDimension()
         );

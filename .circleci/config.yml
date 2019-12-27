@@ -26,3 +26,7 @@ jobs:
                      ./cc-test-reporter before-build
                      vendor/bin/phpunit --coverage-clover clover.xml
                      ./cc-test-reporter after-build --coverage-input-type clover --exit-code $?
+      - run:
+          name: Run PHPStan Level 7
+          command: |
+                     ./vendor/bin/phpstan analyse src tests

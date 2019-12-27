@@ -6,6 +6,9 @@ use ChrisHolland\HashTuner\Exception\FirstDimensionLimitViolation;
 
 interface HashRunTime
 {
+    /**
+     * @return array<mixed>
+     */
     public function getInfo(): array;
 
     public function getFirstDimension(): float;

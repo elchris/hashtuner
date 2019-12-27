@@ -3,7 +3,6 @@
 namespace ChrisHolland\HashTuner\Test;
 
 use ChrisHolland\HashTuner\DTO\ExecutionBounds;
-use ChrisHolland\HashTuner\Strategy\TunerStrategy;
 use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
 
 class TwoDimensionTunerStrategyTest extends BaseTunerTest
@@ -15,18 +14,18 @@ class TwoDimensionTunerStrategyTest extends BaseTunerTest
     public function testDesiredLimits(): void
     {
         $executionTimeOverLimit = self::UPPER + 0.5;
-        $tuner = $this->getTuner($executionTimeOverLimit);
+        $tuner = $this->getStrategy($executionTimeOverLimit);
         self::assertFalse($tuner->isAcceptable());
 
         $executionTimeBelowLimit = self::LOWER - 0.1;
-        $tuner = $this->getTuner($executionTimeBelowLimit);
+        $tuner = $this->getStrategy($executionTimeBelowLimit);
         self::assertFalse($tuner->isAcceptable());
 
         $executionTimeWithinMemoryBump =
             (self::UPPER * TwoDimensionsTunerStrategy::FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT)
             - 0.05
         ;
-        $tuner = $this->getTuner($executionTimeWithinMemoryBump);
+        $tuner = $this->getStrategy($executionTimeWithinMemoryBump);
         self::assertTrue($tuner->isAcceptable());
         self::assertFalse($tuner->hasReachedFirstDimensionBumpStopThreshold());
 
@@ -34,21 +33,21 @@ class TwoDimensionTunerStrategyTest extends BaseTunerTest
             (self::UPPER * TwoDimensionsTunerStrategy::FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT)
             + 0.01
         ;
-        $tuner = $this->getTuner($executionTimePastMemoryBump);
+        $tuner = $this->getStrategy($executionTimePastMemoryBump);
         self::assertTrue($tuner->isAcceptable());
         self::assertTrue($tuner->hasReachedFirstDimensionBumpStopThreshold());
     }
 
     public function testFirstDimensionTuningLogic(): void
     {
-        $tuner = $this->getFirstDimensionTunedTuner();
+        $tuner = $this->getFirstDimensionTunedStrategy();
         self::assertTrue($tuner->isAcceptable());
         self::assertTrue($tuner->hasReachedFirstDimensionBumpStopThreshold());
     }
 
     public function testFirstDimensionTuningExceedsMemoryLimit(): void
     {
-        $tuner = $this->getMemoryExceedingTuner();
+        $tuner = $this->getMemoryExceedingStrategy();
         $tuner->tuneFirstDimension();
         self::assertFalse($tuner->isAcceptable());
         self::assertFalse($tuner->hasReachedFirstDimensionBumpStopThreshold());
@@ -56,7 +55,7 @@ class TwoDimensionTunerStrategyTest extends BaseTunerTest
 
     public function testSecondDimensionTuningLogic(): void
     {
-        $tuner = $this->getFirstDimensionTunedTuner();
+        $tuner = $this->getFirstDimensionTunedStrategy();
         $tuner->tuneSecondDimensionBeyondAcceptability();
         self::assertFalse($tuner->isAcceptable());
         $tuner->tuneSecondDimensionBackWithinAcceptability();
@@ -65,7 +64,7 @@ class TwoDimensionTunerStrategyTest extends BaseTunerTest
 
     public function testOverallTuning(): void
     {
-        $tuner = $this->getTuner(self::INITIAL_EXEC_TIME);
+        $tuner = $this->getStrategy(self::INITIAL_EXEC_TIME);
         $initialExecTime = $tuner->getActualExecutionTime();
         self::assertFalse($tuner->isAcceptable());
         $tuner->tune();
@@ -76,35 +75,32 @@ class TwoDimensionTunerStrategyTest extends BaseTunerTest
 
     public function testOverallTuningWhileExceedingMemory(): void
     {
-        $tuner = $this->getMemoryExceedingTuner();
+        $tuner = $this->getMemoryExceedingStrategy();
         $tuner->tune();
         $result = $tuner->getTuningResult();
         self::assertTrue($tuner->isAcceptable());
         $this->assertResultCorrectness($result);
     }
 
-    private function getTuner(float $actualExecutionTime): TunerStrategy
+    private function getStrategy(float $actualExecutionTime): TwoDimensionsTunerStrategy
     {
         $initialMemory = 1024000;
-        return $this->getTunerWithInitialMemory(
+        return $this->getStrategyWithInitialMemory(
             $actualExecutionTime,
             $initialMemory
         );
     }
 
-    /**
-     * @return TunerStrategy
-     */
-    private function getFirstDimensionTunedTuner(): TunerStrategy
+    private function getFirstDimensionTunedStrategy(): TwoDimensionsTunerStrategy
     {
-        $tuner = $this->getTuner(self::INITIAL_EXEC_TIME);
+        $tuner = $this->getStrategy(self::INITIAL_EXEC_TIME);
         $tuner->tuneFirstDimension();
         return $tuner;
     }
 
-    private function getMemoryExceedingTuner(): TwoDimensionsTunerStrategy
+    private function getMemoryExceedingStrategy(): TwoDimensionsTunerStrategy
     {
-        return $this->getTunerWithInitialMemory(
+        return $this->getStrategyWithInitialMemory(
             0.20,
             4096000
         );
@@ -115,7 +111,7 @@ class TwoDimensionTunerStrategyTest extends BaseTunerTest
      * @param int $initialMemory
      * @return TwoDimensionsTunerStrategy
      */
-    private function getTunerWithInitialMemory(
+    private function getStrategyWithInitialMemory(
         float $actualExecutionTime,
         int $initialMemory
     ): TwoDimensionsTunerStrategy {
