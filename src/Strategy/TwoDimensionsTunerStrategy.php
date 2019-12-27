@@ -78,11 +78,6 @@ class TwoDimensionsTunerStrategy implements TunerStrategy
         return $this->getActualExecutionTime() >= $this->firstDimensionBumpStopThreshold;
     }
 
-    public function getRunTimeInfo() : string
-    {
-        return $this->runTime->info();
-    }
-
     /**
      * @throws FirstDimensionLimitViolation
      */
