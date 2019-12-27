@@ -30,3 +30,7 @@ jobs:
           name: Run PHPStan Level 7
           command: |
                      ./vendor/bin/phpstan analyse src tests
+      - run:
+          name: Run PHPCS PSR-2
+          command: |
+                      ./vendor/bin/phpcs --standard=PSR2 --ignore=./src/index.php src tests
