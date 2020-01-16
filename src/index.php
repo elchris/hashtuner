@@ -7,11 +7,11 @@ function processAlgo(string $output): void
     print $output."\n";
 }
 $argon = new ArgonTuner();
-if (! isset($argv[1])) {
+if (!isset($argv[1])) {
     processAlgo(
         $argon->getTunedSettings()->toJson()
     );
-} elseif (! isset($argv[2])) {
+} elseif (!isset($argv[2])) {
     $memLimit = (int)$argv[1];
     processAlgo(
         $argon->getTunedSettingsForMemoryLimit($memLimit)->toJson()
