@@ -21,7 +21,7 @@ For the time-being, "`threads`" are locked-down to `1`, because the libsodium in
 # Hard Memory Limit
 * Estimate a server's available memory for concurrent password-hashing processes, say `8GB`
 * Estimate a worst-case scenario for concurrent users logging-in at a given time, say `50`.
-* Divite the two: 8GB / 50 = 160MB
+* Divide the two: 8GB / 50 = 160MB
 * `Hard Memory Limit` should be set to `160000` aka 160,000KB
 
 # Quickest Usage with Phar File
