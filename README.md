@@ -14,7 +14,7 @@ Various algorithms give us different "levers" to control the cost of computing a
 ## Argon2id
 With a minimum of `3 iterations`, it strives to dominate the cost of password hashing with memory, up to a specified `hard memory limit`, to achieve an execution time within a given range.
 
-Once it achieves 75% of the upper execution time limit, or the `hard memory limit` has been reached, it stops augmenting the memory then tries to get even closer to the upper execution time limit by augmenting iterations.
+Once it achieves [75%](https://github.com/elchris/hashtuner/blob/21030235f40cbce82cdba8b8a2333d91334b3198/src/Strategy/TwoDimensionsTunerStrategy.php#L14) of the upper execution time limit, or the `hard memory limit` has been reached, it stops augmenting the memory then tries to get even closer to the upper execution time limit by augmenting iterations.
 
 For the time-being, "`threads`" are locked-down to `1`, because the libsodium integration with password_hash won't accept a value other than `1`. - Insert link to article explaining this behavior here -
 
