@@ -94,7 +94,7 @@ Contributions are welcome and gratefuly appreciated. Please ensure that every co
 
 ## Standards
 * [Style](https://github.com/squizlabs/PHP_CodeSniffer): [PSR-2](https://www.php-fig.org/psr/psr-2/)
-* [PHPStan](https://github.com/phpstan/phpstan): Level 7
+* [PHPStan](https://github.com/phpstan/phpstan): Level [7](https://github.com/elchris/hashtuner/blob/f539db5a0aa0f72110f921cdd893c403b3536895/phpstan.neon#L4)
 
 ## Driving Code, with Tests
 Aside from src/index.php, 100% of this code was driven by tests, which is how I achieved "100% coverage". Having said this, I don't test-drive code to achieve any "code coverage" percentage, I only do it to more quickly understand what I'm trying to deliver, more easily arrive at a solution, and in the end deliver better software, faster than I would without doing any testing whatsoever. A high "code coverage" percentage just happens to be a mere byproduct of this process.
