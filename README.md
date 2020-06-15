@@ -4,6 +4,11 @@ This library was inspired by [Bryan Burman's article](https://www.twelve21.io/ho
 
 It requires php 7.3 or greater.
 
+It can be used:
+
+* as an executable from the command line, which outputs a JSON payload containing target settings
+* integrated in any PHP system thru Object-Oriented API
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/7dab2d6867ce7b0c6a6e/maintainability)](https://codeclimate.com/github/elchris/hashtuner/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/7dab2d6867ce7b0c6a6e/test_coverage)](https://codeclimate.com/github/elchris/hashtuner/test_coverage)
 [![CircleCI](https://circleci.com/gh/elchris/hashtuner.svg?style=svg)](https://circleci.com/gh/elchris/hashtuner)
