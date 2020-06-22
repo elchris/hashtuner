@@ -25,7 +25,7 @@ class ArgonTuner
         if ($makeAlgoNotExist) {
             $algoExists = false;
         }
-        if (! $algoExists) {
+        if (!$algoExists) {
             throw new UnsupportedPasswordHashingAlgo(
                 'Argon2id is not supported on your system'
             );
