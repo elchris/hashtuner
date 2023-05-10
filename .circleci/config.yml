@@ -13,7 +13,7 @@ jobs:
             uname -a
             apt update
             apt upgrade -y
-            apt-get install git
+            apt-get -y install git
             curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
             composer self-update
             composer install -n --prefer-dist
