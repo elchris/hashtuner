@@ -42,7 +42,7 @@ class SystemInfoTest extends TestCase
 
     /**
      * @param string $os
-     * @param string $osCommand
+     * @param string|null $osCommand
      * @throws MemoryLimitNotSetException
      */
     private function assertOsProcessorsCommand(string $os, ?string $osCommand): void

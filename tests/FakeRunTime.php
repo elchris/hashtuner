@@ -10,23 +10,15 @@ class FakeRunTime implements HashRunTime
     public const LOAD_INCREASE = 0.10;
     public const LOAD_MULTIPLIER = 1.25;
     public const HARD_MEMORY_LIMIT = 4096000;
-    /**
-     * @var float
-     */
-    private $memory;
-    /**
-     * @var float
-     */
-    private $execTime;
-    /**
-     * @var int
-     */
-    private $iterations;
+
+    private float $memory;
+    private float $execTime;
+    private int $iterations;
 
     /**
-     * @var array<mixed>
+     * @var array<string|mixed>
      */
-    private $info;
+    private array $info;
 
     public function __construct(
         int $initialIterations,

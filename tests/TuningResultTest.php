@@ -6,10 +6,14 @@ use ChrisHolland\HashTuner\DTO\ExecutionBounds;
 use ChrisHolland\HashTuner\DTO\ExecutionInfo;
 use ChrisHolland\HashTuner\DTO\Settings;
 use ChrisHolland\HashTuner\DTO\TuningResult;
+use JsonException;
 use PHPUnit\Framework\TestCase;
 
 class TuningResultTest extends TestCase
 {
+    /**
+     * @throws JsonException
+     */
     public function testJsonOutput(): void
     {
         $result = $this->getTuningResult();
