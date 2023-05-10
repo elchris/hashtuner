@@ -16,8 +16,11 @@ jobs:
             apt-get -y install git
             curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
             composer self-update
-            composer install -n --prefer-dist
       - checkout:
+      - run:
+          name: Composer Install
+          command: |
+            composer install -n --prefer-dist
       - run:
           name: Setup Code Climate test-reporter
           command: |
