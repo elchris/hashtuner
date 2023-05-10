@@ -15,7 +15,7 @@ class TuningResult
     public float $executionTime;
 
     /**
-     * @var string[]
+     * @var array<string|mixed>
      */
     public array $info;
 

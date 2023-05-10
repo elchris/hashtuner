@@ -2,7 +2,6 @@
 
 namespace ChrisHolland\HashTuner\Test;
 
-use BrandEmbassy\Memory\MemoryLimitNotSetException;
 use ChrisHolland\HashTuner\Exception\FirstDimensionLimitViolation;
 use ChrisHolland\HashTuner\RunTime\ArgonRunTime;
 use ChrisHolland\HashTuner\RunTime\HashRunTime;
@@ -21,7 +20,6 @@ class ArgonRunTimeTest extends TestCase
 
     /**
      * @throws FirstDimensionLimitViolation
-     * @throws MemoryLimitNotSetException
      */
     public function testMemoryHardLimitViolation(): void
     {

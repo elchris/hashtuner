@@ -12,10 +12,7 @@ abstract class BaseTunerTestCase extends TestCase
     public const DEFAULT_EXECUTION_LOW = 0.5;
     public const DEFAULT_EXECUTION_HIGH = 1.0;
 
-    /**
-     * @var int
-     */
-    protected $threads;
+    protected int $threads;
 
     public function setUp() : void
     {
