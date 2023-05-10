@@ -19,7 +19,7 @@ class ArgonTuner
      * @param bool $makeAlgoNotExist
      * @throws UnsupportedPasswordHashingAlgo
      */
-    public function __construct($makeAlgoNotExist = false)
+    public function __construct(bool $makeAlgoNotExist = false)
     {
         $algoExists = defined('PASSWORD_ARGON2ID');
         if ($makeAlgoNotExist) {

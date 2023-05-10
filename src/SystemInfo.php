@@ -14,14 +14,9 @@ class SystemInfo
     public const LINUX_PROCESSORS_COMMAND = 'cat /proc/cpuinfo | grep processor | wc -l';
     public const FREEBSD_PROCESSORS_COMMAND = 'sysctl -a | grep \'hw.ncpu\' | cut -d \':\' -f2';
     public const DARWIN_PROCESSORS_COMMAND = 'sysctl -n hw.ncpu';
-    /**
-     * @var int
-     */
-    private $limitInKiloBytes;
-    /**
-     * @var string
-     */
-    private $OS;
+
+    private int $limitInKiloBytes;
+    private string $OS;
 
     /**
      * SystemInfo constructor.
@@ -53,7 +48,11 @@ class SystemInfo
     {
         //cribbed from https://wp-mix.com/php-get-server-information/
         $cmd = $this->getCoresCommand();
-        return ($cmd === null) ? 1 : (int)trim(shell_exec($cmd));
+        $shellOutput = shell_exec($cmd);
+        if (($shellOutput === null) || ($shellOutput === false)) {
+            $shellOutput = '1';
+        }
+        return ($cmd === null) ? 1 : (int)trim($shellOutput);
     }
 
     /**
@@ -61,20 +60,11 @@ class SystemInfo
      */
     public function getCoresCommand(): ?string
     {
-        $cmd = null;
-        switch ($this->OS) {
-            case (self::LINUX):
-                $cmd = self::LINUX_PROCESSORS_COMMAND;
-                break;
-            case (self::FREEBSD):
-                $cmd = self::FREEBSD_PROCESSORS_COMMAND;
-                break;
-            case (self::DARWIN):
-                $cmd = self::DARWIN_PROCESSORS_COMMAND;
-                break;
-            default:
-                $cmd = null;
-        }
-        return $cmd;
+        return match ($this->OS) {
+            self::LINUX => self::LINUX_PROCESSORS_COMMAND,
+            self::FREEBSD => self::FREEBSD_PROCESSORS_COMMAND,
+            self::DARWIN => self::DARWIN_PROCESSORS_COMMAND,
+            default => null,
+        };
     }
 }

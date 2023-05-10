@@ -5,7 +5,7 @@ namespace ChrisHolland\HashTuner\Test;
 use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
 use ChrisHolland\HashTuner\Tuners\Tuner;
 
-class TunerTestCase extends BaseTunerTestCase
+class TunerTest extends BaseTunerTestCase
 {
     public function testTunerWithFakeRunTime(): void
     {

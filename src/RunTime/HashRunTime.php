@@ -7,7 +7,7 @@ use ChrisHolland\HashTuner\Exception\FirstDimensionLimitViolation;
 interface HashRunTime
 {
     /**
-     * @return array<mixed>
+     * @return string[]
      */
     public function getInfo(): array;
 

@@ -5,17 +5,16 @@ namespace ChrisHolland\HashTuner\DTO;
 class ExecutionInfo
 {
     /**
-     * @var array<mixed>
+     * @var string[]
      */
-    public $hashInfo;
+    public array $hashInfo;
     /**
      * @var float
      */
-    public $executionTime;
+    public float $executionTime;
 
     /**
-     * ExecutionInfo constructor.
-     * @param array<mixed> $hashInfo
+     * @param string[] $hashInfo
      * @param float $executionTime
      */
     public function __construct(

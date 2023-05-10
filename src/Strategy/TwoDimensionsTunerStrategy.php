@@ -13,22 +13,10 @@ class TwoDimensionsTunerStrategy implements TunerStrategy
 {
     public const FIRST_DIMENSION_BUMP_STOP_PERCENTAGE_OF_UPPER_LIMIT = 0.75;
 
-    /**
-     * @var float
-     */
-    private $desiredExecutionTimeUpperLimit;
-    /**
-     * @var float
-     */
-    private $desiredExecutionTimeLowerLimit;
-    /**
-     * @var float
-     */
-    private $firstDimensionBumpStopThreshold;
-    /**
-     * @var HashRunTime
-     */
-    private $runTime;
+    private float $desiredExecutionTimeUpperLimit;
+    private float $desiredExecutionTimeLowerLimit;
+    private float $firstDimensionBumpStopThreshold;
+    private HashRunTime $runTime;
 
     public function __construct(
         ExecutionBounds $bounds,

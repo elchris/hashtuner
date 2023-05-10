@@ -2,41 +2,22 @@
 
 namespace ChrisHolland\HashTuner\DTO;
 
+use JsonException;
+
 class TuningResult
 {
-    /**
-     * @var int
-     */
-    public $hardMemoryLimit;
-    /**
-     * @var float
-     */
-    public $desiredExecutionLow;
-    /**
-     * @var float
-     */
-    public $desiredExecutionHigh;
-    /**
-     * @var int
-     */
-    public $settingMemory;
-    /**
-     * @var int
-     */
-    public $settingIterations;
-    /**
-     * @var int
-     */
-    public $settingThreads;
-    /**
-     * @var float
-     */
-    public $executionTime;
+    public int $hardMemoryLimit;
+    public float $desiredExecutionLow;
+    public float $desiredExecutionHigh;
+    public int $settingMemory;
+    public int $settingIterations;
+    public int $settingThreads;
+    public float $executionTime;
 
     /**
-     * @var array<mixed>
+     * @var string[]
      */
-    public $info;
+    public array $info;
 
     public function __construct(
         int $hardMemoryLimit,
@@ -54,6 +35,9 @@ class TuningResult
         $this->hardMemoryLimit = $hardMemoryLimit;
     }
 
+    /**
+     * @throws JsonException
+     */
     public function toJson() : string
     {
         return json_encode(

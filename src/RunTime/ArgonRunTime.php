@@ -8,34 +8,14 @@ use ChrisHolland\HashTuner\SystemInfo;
 class ArgonRunTime implements HashRunTime
 {
     public const MEMORY_INCREASE_PERCENTAGE = 0.10;
-    /**
-     * @var float
-     */
-    private $memory;
-    /**
-     * @var int
-     */
-    private $iterations;
-    /**
-     * @var int
-     */
-    private $threads;
-    /**
-     * @var float
-     */
-    private $execTime;
-    /**
-     * @var SystemInfo
-     */
-    private $systemInfo;
-    /**
-     * @var int|null
-     */
-    private $memoryLimitInKilobytesOverride;
-    /**
-     * @var array<mixed>
-     */
-    private $info;
+    private float $memory;
+    private int $iterations;
+    private int $threads;
+    private float $execTime;
+    private SystemInfo $systemInfo;
+    private ?int $memoryLimitInKilobytesOverride;
+    /** @var array<string> */
+    private array $info;
 
     public function __construct(
         int $initialMemory,
@@ -53,7 +33,7 @@ class ArgonRunTime implements HashRunTime
     private function execute() : void
     {
         $start = microtime(true);
-        $hash = (string)password_hash(
+        $hash = password_hash(
             'i am not secure',
             PASSWORD_ARGON2ID,
             [
@@ -123,15 +103,11 @@ class ArgonRunTime implements HashRunTime
     
     public function getHardMemoryLimitInKilobytes(): int
     {
-        if ($this->memoryLimitInKilobytesOverride === null) {
-            return $this->systemInfo->getMemoryLimitInKiloBytes();
-        }
-
-        return $this->memoryLimitInKilobytesOverride;
+        return $this->memoryLimitInKilobytesOverride ?? $this->systemInfo->getMemoryLimitInKiloBytes();
     }
 
     /**
-     * @return array<mixed>
+     * @return string[]
      */
     public function getInfo(): array
     {

@@ -4,14 +4,8 @@ namespace ChrisHolland\HashTuner\DTO;
 
 class ExecutionBounds
 {
-    /**
-     * @var float
-     */
-    public $lower;
-    /**
-     * @var float
-     */
-    public $upper;
+    public float $lower;
+    public float $upper;
 
     public function __construct(float $desiredExecutionTimeLowerLimit, float $desiredExecutionTimeUpperLimit)
     {

@@ -11,10 +11,7 @@ class Tuner
     public const DEFAULT_EXECUTION_LOW = 0.5;
     public const DEFAULT_EXECUTION_HIGH = 1.0;
 
-    /**
-     * @var TunerStrategy
-     */
-    private $strategy;
+    private TunerStrategy $strategy;
 
     public function __construct(
         TunerStrategy $strategy

@@ -4,18 +4,9 @@ namespace ChrisHolland\HashTuner\DTO;
 
 class Settings
 {
-    /**
-     * @var int
-     */
-    public $memory;
-    /**
-     * @var int
-     */
-    public $iterations;
-    /**
-     * @var int
-     */
-    public $threads;
+    public int $memory;
+    public int $iterations;
+    public int $threads;
 
     public function __construct(
         int $memory,
