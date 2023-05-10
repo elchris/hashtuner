@@ -14,11 +14,6 @@ jobs:
             apt update
             apt upgrade -y
             apt-get -y install git
-            apt-get -y install zip unzip
-            apt-get -y install software-properties-common
-            add-apt-repository --yes ppa:ondrej/php
-            apt update
-            apt-get -y install php8.2-zip
             curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
             composer self-update
       - run:
@@ -27,7 +22,8 @@ jobs:
             git clone https://github.com/elchris/hashtuner.git
             cd hashtuner
             php --ini
-            composer install -n --prefer-dist
+            export COMPOSER_PROCESS_TIMEOUT=600
+            composer install -n --prefer-source
       - run:
           name: Setup Code Climate test-reporter
           command: |
