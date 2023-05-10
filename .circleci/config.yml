@@ -21,6 +21,7 @@ jobs:
           command: |
             git clone https://github.com/elchris/hashtuner.git
             cd hashtuner
+            php --ini
             composer install -n --prefer-dist
       - run:
           name: Setup Code Climate test-reporter
