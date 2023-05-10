@@ -14,6 +14,7 @@ jobs:
             apt update
             apt upgrade -y
             apt-get -y install git
+            apt-get -y install zip unzip php8.2-zip
             curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
             composer self-update
       - run:
@@ -22,7 +23,7 @@ jobs:
             git clone https://github.com/elchris/hashtuner.git
             cd hashtuner
             php --ini
-            composer install -n --prefer-source
+            composer install -n --prefer-dist
       - run:
           name: Setup Code Climate test-reporter
           command: |
