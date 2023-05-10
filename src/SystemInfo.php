@@ -17,14 +17,12 @@ class SystemInfo
 
     private int $limitInKiloBytes;
     private string $OS;
+    private ?bool $shellOverrideToFail;
 
-    /**
-     * SystemInfo constructor.
-     * @param string|null $OsOverride
-     * @throws MemoryLimitNotSetException
-     */
-    public function __construct(?string $OsOverride = null)
-    {
+    public function __construct(
+        ?string $OsOverride = null,
+        ?bool $shellOverrideToFail = false
+    ) {
         $configuration = new MemoryConfiguration();
         $limitProvider = new MemoryLimitProvider($configuration);
         $limitInBytes = $limitProvider->getLimitInBytes();
@@ -32,11 +30,11 @@ class SystemInfo
         if ($OsOverride === null) {
             $this->OS = strtolower(trim(
                 php_uname('s')
-                //shell_exec('uname')
             ));
         } else {
             $this->OS = $OsOverride;
         }
+        $this->shellOverrideToFail = $shellOverrideToFail;
     }
 
     public function getMemoryLimitInKiloBytes(): int
@@ -49,6 +47,9 @@ class SystemInfo
         //cribbed from https://wp-mix.com/php-get-server-information/
         $cmd = $this->getCoresCommand();
         $shellOutput = shell_exec($cmd);
+        if ($this->shellOverrideToFail === true) {
+            $shellOutput = null;
+        }
         if (($shellOutput === null) || ($shellOutput === false)) {
             $shellOutput = '1';
         }

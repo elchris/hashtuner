@@ -2,7 +2,6 @@
 
 namespace ChrisHolland\HashTuner\Test;
 
-use BrandEmbassy\Memory\MemoryLimitNotSetException;
 use ChrisHolland\HashTuner\SystemInfo;
 use PHPUnit\Framework\TestCase;
 
@@ -13,11 +12,11 @@ class SystemInfoTest extends TestCase
         $info = new SystemInfo();
         self::assertIsInt($info->getCores());
         self::assertGreaterThanOrEqual(1, $info->getCores());
+
+        $infoFailedExec = new SystemInfo(null, true);
+        self::assertSame(1, $infoFailedExec->getCores());
     }
 
-    /**
-     * @throws MemoryLimitNotSetException
-     */
     public function testOsProcessorsCommand(): void
     {
         $this->assertOsProcessorsCommand(
@@ -43,7 +42,6 @@ class SystemInfoTest extends TestCase
     /**
      * @param string $os
      * @param string|null $osCommand
-     * @throws MemoryLimitNotSetException
      */
     private function assertOsProcessorsCommand(string $os, ?string $osCommand): void
     {
