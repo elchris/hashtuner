@@ -5,7 +5,7 @@ namespace ChrisHolland\HashTuner\Test;
 use ChrisHolland\HashTuner\DTO\ExecutionBounds;
 use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
 
-class TwoDimensionTunerStrategyTest extends BaseTunerTest
+class TwoDimensionTunerStrategyTestCase extends BaseTunerTestCase
 {
     public const UPPER = 1.0;
     public const LOWER = 0.5;

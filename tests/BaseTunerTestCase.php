@@ -7,7 +7,7 @@ use ChrisHolland\HashTuner\DTO\TuningResult;
 use ChrisHolland\HashTuner\Tuners\Tuner;
 use PHPUnit\Framework\TestCase;
 
-abstract class BaseTunerTest extends TestCase
+abstract class BaseTunerTestCase extends TestCase
 {
     public const DEFAULT_EXECUTION_LOW = 0.5;
     public const DEFAULT_EXECUTION_HIGH = 1.0;

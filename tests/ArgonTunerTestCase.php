@@ -8,7 +8,7 @@ use ChrisHolland\HashTuner\Strategy\TwoDimensionsTunerStrategy;
 use ChrisHolland\HashTuner\Tuners\ArgonTuner;
 use ChrisHolland\HashTuner\Tuners\Tuner;
 
-class ArgonTunerTest extends BaseTunerTest
+class ArgonTunerTestCase extends BaseTunerTestCase
 {
     public function testArgonAlgoNotSupported(): void
     {
