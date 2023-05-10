@@ -15,6 +15,8 @@ jobs:
             apt upgrade -y
             apt-get -y install git
             apt-get -y install zip unzip
+            add-apt-repository ppa:ondrej/php
+            apt update
             apt-get -y install php8.2-zip
             curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
             composer self-update
