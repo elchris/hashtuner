@@ -16,10 +16,11 @@ jobs:
             apt-get -y install git
             curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
             composer self-update
-      - checkout:
       - run:
-          name: Composer Install
+          name: Clone and Composer Install
           command: |
+            git clone https://github.com/elchris/hashtuner.git
+            cd hashtuner
             composer install -n --prefer-dist
       - run:
           name: Setup Code Climate test-reporter
