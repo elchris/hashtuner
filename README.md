@@ -44,7 +44,7 @@ php ./hashtuner.phar
 
 ## Usage with Custom Hard Memory Limit
 ```
-php ./hastuner.phar 128000
+php ./hashtuner.phar 128000
 ```
 * Sets your `hard memory limit` to roughly `128 Megabytes`
 * Assumes a `desired execution time` between `0.5 and 1.0 seconds`
