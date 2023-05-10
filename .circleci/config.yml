@@ -10,6 +10,7 @@ jobs:
       - run:
           name: Setup dependencies
           command: |
+            uname -a
             yum -y update
             yum install git
             curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
