@@ -11,16 +11,15 @@
     ],
     "type": "project",
     "require": {
-		"php": ">=7.3",
-        "brandembassy/php-memory": "^1.2",
-        "ext-json": "*"
+		"php": ">=8.0",
+        "ext-json": "*",
+        "brandembassy/php-memory": "^1.2"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master"
-        ,
-        "phpunit/phpunit": "^8",
-        "squizlabs/php_codesniffer": "^3.5",
-        "phpstan/phpstan": "^0.12.3"
+        "roave/security-advisories": "dev-latest",
+        "phpstan/phpstan": "^1.10",
+        "squizlabs/php_codesniffer": "^3.7",
+        "phpunit/phpunit": "^10.1"
     },
     "autoload": {
         "psr-4": {

@@ -2,7 +2,7 @@
 Framework to automatically suggest settings for password hashing functions, starting with Argon2id.
 This library was inspired by [Bryan Burman's article](https://www.twelve21.io/how-to-choose-the-right-parameters-for-argon2/).
 
-It requires php 7.3 or greater.
+It requires php 8.0 or greater.
 
 It can be used:
 
@@ -30,7 +30,7 @@ For the time-being, "`threads`" are locked-down to `1`, because the libsodium in
 * `Hard Memory Limit` should be set to `160000` aka 160,000KB
 
 # Quickest Usage with Phar File
-* Download [hashtuner.phar](https://github.com/elchris/hashtuner/blob/master/hashtuner.phar)
+* Download [hashtuner.phar](https://github.com/elchris/hashtuner/blob/main/hashtuner.phar)
 * scp it to your server
 
 ## Usage with Defaults
@@ -104,7 +104,10 @@ Contributions are welcome and gratefuly appreciated. Please ensure that every co
 ## Driving Code, with Tests
 Aside from src/index.php, 100% of this code was driven by tests, which is how I achieved "100% coverage". Having said this, I don't test-drive code to achieve any "code coverage" percentage, I only do it to more quickly understand what I'm trying to deliver, more easily arrive at a solution, and in the end deliver better software, faster than I would without doing any testing whatsoever. A high "code coverage" percentage just happens to be a mere byproduct of this process.
 
-
+## Generate hashtuner.phar with box-project
+* [install the "box" command](https://github.com/box-project/box/blob/main/doc/installation.md#homebrew)
+* run (all settings live box.json):
+  * `box compile`
 
 
 
