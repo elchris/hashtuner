@@ -98,7 +98,7 @@ composer require chrisholland/hashtuner
 Contributions are welcome and gratefuly appreciated. Please ensure that every commit includes a new test signaling intent, or a fix to an existing test to correct erroneous or missing assumptions.
 
 ## Standards
-* [Style](https://github.com/squizlabs/PHP_CodeSniffer): [PSR-2](https://www.php-fig.org/psr/psr-2/)
+* [Style](https://github.com/PHPCSStandards/PHP_CodeSniffer): [PSR-2](https://www.php-fig.org/psr/psr-2/)
 * [PHPStan](https://github.com/phpstan/phpstan): Level [7](https://github.com/elchris/hashtuner/blob/f539db5a0aa0f72110f921cdd893c403b3536895/phpstan.neon#L4)
 
 ## Driving Code, with Tests
